@@ -1,12 +1,16 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 import Layout from "../../components/Layout";
 import MovieList from "../../components/MovieList";
 
-import { useGetPopularMovies } from "../../utils/useGetPopularMovies";
+import { useGetMoviesFromGenre } from "../../utils/useGetMoviesFromGenre";
 
 function index(props) {
-  const { data, isLoading, error } = useGetPopularMovies();
+  const { query } = useRouter();
+  const genreId = query.genreId;
+
+  const { data, isLoading, error } = useGetMoviesFromGenre(genreId);
 
   return (
     <Layout>
