@@ -1,11 +1,36 @@
 import React from "react";
+import Link from "next/link";
 import Sticky from "react-stickynode";
 
 import { useGetAllGenres } from "../../utils/useGetAllGenres";
 
 import { Container, OptionContainer, Option } from "./style";
 
-const StaticGenre = ["Popular", "Top Rated", "Upcoming"];
+const StaticGenre = [
+  {
+    id: 1,
+    text: "Popular",
+    href: "/popular",
+  },
+  {
+    id: 2,
+    text: "Top Rated",
+    href: "/toprated",
+  },
+  {
+    id: 3,
+    text: "Upcoming",
+    href: "/upcoming",
+  },
+];
+
+const MyLink = React.forwardRef(({ onClick, href, children }, ref) => {
+  return (
+    <Option href={href} onClick={onClick} ref={ref}>
+      {children}
+    </Option>
+  );
+});
 
 function index(props) {
   const { data, isLoading, error } = useGetAllGenres();
@@ -18,8 +43,10 @@ function index(props) {
     return (
       <>
         {genres?.map((name) => (
-          <OptionContainer key={name}>
-            <Option>{name}</Option>
+          <OptionContainer key={name.id}>
+            <Link href={name?.href} passHref>
+              <MyLink>{name?.text}</MyLink>
+            </Link>
           </OptionContainer>
         ))}
       </>
@@ -31,7 +58,15 @@ function index(props) {
       <>
         {genres?.map(({ name, id }) => (
           <OptionContainer key={id}>
-            <Option>{name}</Option>
+            <Link
+              href={{
+                pathname: "/genre",
+                query: { id },
+              }}
+              passHref
+            >
+              <MyLink>{name}</MyLink>
+            </Link>
           </OptionContainer>
         ))}
       </>
