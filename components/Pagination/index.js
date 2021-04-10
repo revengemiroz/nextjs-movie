@@ -6,6 +6,7 @@ import {
 
 function index({ moviesData, onClick }) {
   const currentPage = moviesData?.page;
+  const totalPage = moviesData?.total_pages;
 
   return (
     <Container currentPage={currentPage}>
@@ -17,13 +18,15 @@ function index({ moviesData, onClick }) {
       >
         Page {currentPage - 1}
       </PaginationButtonFirst>
-      <PaginationButtonSecond
-        onClick={() => {
-          onClick(currentPage + 1);
-        }}
-      >
-        Page {currentPage === 1 ? currentPage + 1 : currentPage + 1}
-      </PaginationButtonSecond>
+      {currentPage !== totalPage && (
+        <PaginationButtonSecond
+          onClick={() => {
+            onClick(currentPage + 1);
+          }}
+        >
+          Page {currentPage === 1 ? currentPage + 1 : currentPage + 1}
+        </PaginationButtonSecond>
+      )}
     </Container>
   );
 }

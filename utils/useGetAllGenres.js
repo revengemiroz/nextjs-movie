@@ -11,7 +11,7 @@ export const useGetAllGenres = () =>
   });
 
 export const getTitleFromGenreId = async (data, genreId) => {
-  const id = data.filter((item) => item.id == genreId);
+  const id = data?.filter((item) => item?.id == genreId);
 
   console.log(id);
 };
