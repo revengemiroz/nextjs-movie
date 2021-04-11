@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import { ImgBaseURL } from "../../utils/tmdb";
 
@@ -9,6 +10,10 @@ import {
   MovieHeader,
   Ratings,
   Genre,
+  GenreLink,
+  Synopsis,
+  Cast,
+  ExternalLinks,
 } from "./style";
 
 function index({ movieDetails }) {
@@ -42,19 +47,37 @@ function index({ movieDetails }) {
           <span className="genreTitle">The genres</span>
           <div className="linkContainer">
             {movieDetails?.genres?.map((genre) => (
-              <button
-                onClick={() => {
-                  router?.push({
-                    pathname: process.env.NEXT_PUBLIC_URL + `genre`,
-                    query: { id: genre.id },
-                  });
+              <Link
+                href={{
+                  pathname: process.env.NEXT_PUBLIC_URL + `genre`,
+                  query: { id: genre.id },
                 }}
+                passHref
               >
-                {genre?.name}
-              </button>
+                <GenreLink>{genre?.name}</GenreLink>
+              </Link>
             ))}
           </div>
         </Genre>
+
+        <Synopsis>
+          <span className="synopsisTitle">The Synopsis</span>
+          <span className="synopsis">{movieDetails?.overview}</span>
+        </Synopsis>
+
+        <Cast>
+          <span className="cast">The Cast</span>
+        </Cast>
+
+        <ExternalLinks>
+          <a href={movieDetails?.homepage}>
+            <span>Website</span>
+          </a>
+          <a href={"https://www.imdb.com/title/" + movieDetails?.imdb_id}>
+            IMDB
+          </a>
+          <a>Trailer</a>
+        </ExternalLinks>
       </MovieDetails>
     </Container>
   );
