@@ -1,10 +1,18 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Sticky from "react-stickynode";
 
 import { useGetAllGenres } from "../../utils/useGetAllGenres";
 
-import { Container, OptionContainer, Option } from "./style";
+import {
+  Container,
+  HeaderLogo,
+  GenreContainer,
+  OptionContainer,
+  OptionLink,
+  SvgContainer,
+} from "./style";
 
 const StaticGenre = [
   {
@@ -26,9 +34,9 @@ const StaticGenre = [
 
 const MyLink = React.forwardRef(({ onClick, href, children }, ref) => {
   return (
-    <Option href={href} onClick={onClick} ref={ref}>
+    <OptionLink selected={false} href={href} onClick={onClick} ref={ref}>
       {children}
-    </Option>
+    </OptionLink>
   );
 });
 
@@ -42,10 +50,21 @@ function index(props) {
   const getAllStaticGenres = (genres) => {
     return (
       <>
+        <h2>Discover</h2>
         {genres?.map((name) => (
           <OptionContainer key={name.id}>
             <Link href={name?.href} passHref>
-              <MyLink>{name?.text}</MyLink>
+              <MyLink>
+                <div className="link">
+                  <Image
+                    src="/play-fill.svg"
+                    alt="Picture of the author"
+                    width={14}
+                    height={14}
+                  />
+                  <span>{name?.text}</span>
+                </div>
+              </MyLink>
             </Link>
           </OptionContainer>
         ))}
@@ -55,7 +74,8 @@ function index(props) {
 
   const getAllDynamicGenres = (genres) => {
     return (
-      <>
+      <GenreContainer>
+        <h2>Genres</h2>
         {genres?.map(({ name, id }) => (
           <OptionContainer key={id}>
             <Link
@@ -65,19 +85,42 @@ function index(props) {
               }}
               passHref
             >
-              <MyLink>{name}</MyLink>
+              <MyLink>
+                <div className="link">
+                  <Image
+                    src="/play.svg"
+                    alt="Picture of the author"
+                    width={14}
+                    height={14}
+                  />
+                  <span>{name}</span>
+                </div>
+              </MyLink>
             </Link>
           </OptionContainer>
         ))}
-      </>
+      </GenreContainer>
     );
   };
 
   return (
     <Sticky enabled={true} top={40}>
       <Container>
+        <Link href={process.env.NEXT_PUBLIC_URL + "popular"}>
+          <HeaderLogo>
+            <Image
+              src="/joker.png"
+              alt="Picture of the author"
+              width={500}
+              height={500}
+            />
+          </HeaderLogo>
+        </Link>
         {getAllStaticGenres(StaticGenre)}
         {getAllDynamicGenres(data)}
+        <SvgContainer>
+          <img src="https://raw.githubusercontent.com/fidalgodev/movie-library-react/8a1626814f5368a9c311128be857bbc64cf06d55/src/svg/tmdb.svg" />
+        </SvgContainer>
       </Container>
     </Sticky>
   );
