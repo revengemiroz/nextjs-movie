@@ -1,5 +1,4 @@
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 import { useQuery } from "react-query";
 
 const fetchData = async () => {

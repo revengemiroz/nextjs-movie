@@ -9,24 +9,38 @@ export const Container = styled.div`
     currentPage === 1 ? "flex-end" : "space-between"};
 
   button {
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 400;
+    font-size: 1.3rem;
     font-family: "Poppins", sans-serif;
-    background-color: #263238;
-    color: #ffffff;
-    padding: 10px 25px;
+    padding: 1.1rem 3rem;
     letter-spacing: 1.1px;
-    border-radius: 40px;
-    box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.2);
-    transition: 600ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
     outline: none;
     border: none;
     cursor: pointer;
+    line-height: 1;
+    width: auto;
+    -moz-box-flex: 0;
+    flex-grow: 0;
+    color: var(--text-color);
+    border: 1px solid transparent;
+    background-color: var(--color-primary-dark);
+    border-radius: 5rem;
+    box-shadow: 0 1rem 5rem var(--shadow-color);
+    transition: all 600ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+
+    span {
+      width: 100%;
+      min-width: 70px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
 `;
 
 export const PaginationButtonFirst = styled.button`
-  display: ${({ currentPage }) => (currentPage === 1 ? "none" : "block")};
+  display: block;
 `;
 
 export const PaginationButtonSecond = styled.button`
