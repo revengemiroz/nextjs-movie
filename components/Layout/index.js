@@ -2,13 +2,13 @@ import React from "react";
 
 import Sidebar from "../Sidebar";
 
-import { Container } from "./style";
+import { Container, RightSide } from "./style";
 
 function index({ children }) {
   return (
     <Container>
       <Sidebar />
-      {children}
+      <RightSide>{children}</RightSide>
     </Container>
   );
 }
