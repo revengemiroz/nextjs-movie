@@ -1,51 +1,54 @@
-import React, { useState, useRef, useEffect } from "react";
-import Slider from "react-slick";
-import Image from "next/image";
+import React, { useState, useCallback, useEffect } from "react";
+import { useEmblaCarousel } from "embla-carousel/react";
 
-import { Wrapper, Container } from "./style";
+import { PrevButton, NextButton } from "./buttons";
+import CastItem from "../CastItem";
 
-function NextArrow({ onClick }) {
-  return (
-    <Image onClick={onClick} src="/arrow-right.svg" width={5} height={5} />
-  );
-}
+import {
+  Embla,
+  StyledEmblaContainer,
+  StyledEmblaViewport,
+  StyledEmblaSlide,
+  Dott_Button_Container,
+  Dott_Button,
+} from "./style";
 
-function PrevArrow({ onClick }) {
-  return <Image onClick={onClick} src="/arrow-left.svg" width={5} height={5} />;
-}
+function index({ cast }) {
+  const [viewportRef, embla] = useEmblaCarousel({
+    slidesToScroll: 10,
+    containScroll: "trimSnaps",
+  });
+  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
+  const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
 
-function index({ cast, baseURL }) {
-  const [totalShow, setTotalShow] = useState(null);
-  const sliderElement = useRef();
-
-  // Set amount of items to show on slider based on the width of the element
-  const changeTotalShow = () => {};
-
-  const items = [...Array(5)].map((person) => <Container />);
+  const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);
+  const scrollNext = useCallback(() => embla && embla.scrollNext(), [embla]);
+  const onSelect = useCallback(() => {
+    if (!embla) return;
+    setPrevBtnEnabled(embla.canScrollPrev());
+    setNextBtnEnabled(embla.canScrollNext());
+  }, [embla]);
 
   useEffect(() => {
-    changeTotalShow();
-    window.addEventListener("resize", changeTotalShow);
-    return () => window.removeEventListener("resize", changeTotalShow);
-  }, []);
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    swipeToSlide: true,
-    speed: 500,
-    slidesToShow: totalShow,
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-  };
+    if (!embla) return;
+    embla.on("select", onSelect);
+    onSelect();
+  }, [embla, onSelect]);
 
   return (
-    <Wrapper ref={sliderElement}>
-      <Slider {...settings}>{items}</Slider>
-    </Wrapper>
+    <Embla>
+      <StyledEmblaViewport ref={viewportRef}>
+        <StyledEmblaContainer>
+          {cast?.map((i, idx) => (
+            <StyledEmblaSlide key={idx}>
+              <CastItem person={i} />
+            </StyledEmblaSlide>
+          ))}
+        </StyledEmblaContainer>
+      </StyledEmblaViewport>
+      <PrevButton onClick={scrollPrev} enabled={prevBtnEnabled} />
+      <NextButton onClick={scrollNext} enabled={nextBtnEnabled} />
+    </Embla>
   );
 }
 

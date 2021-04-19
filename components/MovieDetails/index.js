@@ -1,8 +1,10 @@
-import { useRouter } from "next/router";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import Ratings from "../Ratings";
+import EmptyImage from "../EmptyImage";
+import Spinner from "../Spinner";
 import Cast from "../Cast";
 
 import { ImgBaseURL } from "../../utils/tmdb";
@@ -22,17 +24,31 @@ import {
   ExternalLinks,
 } from "./style";
 
-function index({ movieDetails }) {
-  console.log(movieDetails);
-  const router = useRouter();
+function index({ movieDetails, loading, cast }) {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  if (!movieDetails || !cast) {
+    return null;
+  }
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  const { poster_path } = movieDetails;
 
   return (
     <Container>
       <ImgContainer>
-        <img
-          src={ImgBaseURL + movieDetails?.poster_path}
-          alt={movieDetails?.id}
-        />
+        {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
+        {poster_path && (
+          <img
+            src={ImgBaseURL + movieDetails?.poster_path}
+            alt={movieDetails?.id}
+            onLoad={() => setImgLoaded(true)}
+          />
+        )}
+        {poster_path == null && <EmptyImage user={false} />}
       </ImgContainer>
 
       <MovieContainer>
@@ -59,6 +75,7 @@ function index({ movieDetails }) {
             <div className="linkContainer">
               {movieDetails?.genres?.map((genre) => (
                 <Link
+                  key={genre.id}
                   href={{
                     pathname: process.env.NEXT_PUBLIC_URL + `genre`,
                     query: { id: genre.id },
@@ -81,10 +98,10 @@ function index({ movieDetails }) {
 
           <CastContainer>
             <span className="cast">The Cast</span>
-            <Cast />
+            <Cast cast={cast?.cast} />
           </CastContainer>
 
-          <ExternalLinks>
+          {/* <ExternalLinks>
             <a href={movieDetails?.homepage}>
               <span>Website</span>
             </a>
@@ -92,7 +109,7 @@ function index({ movieDetails }) {
               IMDB
             </a>
             <a>Trailer</a>
-          </ExternalLinks>
+          </ExternalLinks> */}
         </MovieDetails>
       </MovieContainer>
     </Container>

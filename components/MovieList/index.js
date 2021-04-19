@@ -5,7 +5,10 @@ import MovieCard from "../MovieCard";
 import { Container } from "./style";
 
 function index({ movies }) {
-  console.log(movies);
+  if (!movies) {
+    return null;
+  }
+
   return (
     <Container>
       {movies?.results?.map((movie) => (

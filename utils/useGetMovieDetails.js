@@ -1,15 +1,11 @@
 import { useQuery } from "react-query";
 import tmdb from "./tmdb";
 
-export const getMovieQueryKey = (genreId, page) => [
-  "getMovieDetails",
-  genreId,
-  page,
-];
+export const getMovieQueryKey = (genreId) => ["getMovieDetails", genreId];
 
-export const useGetMovieDetails = (movieId, page) =>
+export const useGetMovieDetails = (movieId) =>
   useQuery(
-    getMovieQueryKey(movieId, page),
+    getMovieQueryKey(movieId),
     async () => {
       const { data } = await tmdb.get(`movie/${movieId}`);
       return data ?? {};

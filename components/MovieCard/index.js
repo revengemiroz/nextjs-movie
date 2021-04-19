@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
+import EmptyImage from "../EmptyImage";
 import Ratings from "../Ratings";
+import Spinner from "../Spinner";
 
 import { ImgBaseURL } from "../../utils/tmdb";
 
@@ -15,13 +17,24 @@ import {
 } from "./style";
 
 function index({ movie }) {
-  console.log(movie);
+  const { poster_path } = movie;
+  const [imgLoaded, setImgLoaded] = useState(false);
+
   return (
     <>
       <Container>
         <Link href={process.env.NEXT_PUBLIC_URL + `movie/${movie?.id}`}>
           <ImgContainer>
-            <img src={ImgBaseURL + movie?.poster_path} alt={movie?.title} />
+            {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
+            {poster_path ? (
+              <img
+                src={ImgBaseURL + movie?.poster_path}
+                alt={movie?.title}
+                onLoad={() => setImgLoaded(true)}
+              />
+            ) : (
+              <EmptyImage />
+            )}
           </ImgContainer>
         </Link>
 

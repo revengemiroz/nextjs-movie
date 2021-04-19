@@ -1,5 +1,3 @@
-import React from "react";
-
 import { ImgBaseURL } from "../../utils/tmdb";
 
 import {
@@ -13,8 +11,6 @@ import {
 } from "./style";
 
 function index({ personDetails }) {
-  console.log(personDetails);
-
   return (
     <Container>
       <ImgContainer>

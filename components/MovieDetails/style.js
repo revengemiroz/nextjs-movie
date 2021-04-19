@@ -12,11 +12,17 @@ export const Container = styled.div`
 `;
 
 export const ImgContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
   max-width: 400px;
+  min-height: 540px;
 
   img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     display: block;
     object-fit: cover;
   }
@@ -151,6 +157,7 @@ export const Synopsis = styled.div`
 `;
 
 export const CastContainer = styled.div`
+  position: relative;
   width: 100%;
 
   .cast {
