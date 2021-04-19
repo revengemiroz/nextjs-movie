@@ -7,5 +7,6 @@ export const Container = styled.div`
 `;
 
 export const RightSide = styled.div`
-  padding: 60px 40px;
+  padding: 60px 40px 0 40px;
+  flex: 1;
 `;

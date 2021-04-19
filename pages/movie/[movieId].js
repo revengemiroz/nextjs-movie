@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import Layout from "../../components/Layout";
 import MovieDetails from "../../components/MovieDetails";
+import ErrorRecommended from "../../components/ErrorRecommended";
 import Header from "../../components/Header";
 import MovieList from "../../components/MovieList";
 import Pagination from "../../components/Pagination";
@@ -22,6 +23,7 @@ function index(props) {
   }, [router.isReady, router.query.movieId]);
 
   const { data, isLoading, error } = useGetRecommendedMovies(movieId, page);
+  console.log(data);
   const {
     data: movieDetails,
     isLoading: movieDetailsLoading,
@@ -38,8 +40,13 @@ function index(props) {
         />
         <Header mainText="recommended" subText="movies" />
 
-        <MovieList movies={data}></MovieList>
-        <Pagination moviesData={data} onClick={setPage} />
+        {data?.results?.length > 0 && (
+          <>
+            <MovieList movies={data}></MovieList>
+            <Pagination moviesData={data} onClick={setPage} />
+          </>
+        )}
+        {data?.results?.length == 0 && <ErrorRecommended />}
       </div>
     </Layout>
   );

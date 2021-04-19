@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
 export const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 5rem;
   height: 5rem;
+  min-height: 5rem;
+  min-width: 5rem;
   cursor: pointer;
 
   img {
