@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
+  height: 100%;
   display: grid;
-  grid-template-columns: auto 800px;
+  grid-template-columns: minmax(400px, 600px) 1fr;
   place-items: center;
+  margin-bottom: 50px;
+  font-family: "Poppins";
 `;
 
 export const ImgContainer = styled.div`
@@ -25,6 +28,8 @@ export const ImgContainer = styled.div`
 
 export const PersonDetails = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Name = styled.span`
@@ -49,8 +54,10 @@ export const DateOfBirth = styled.span`
 
 export const Biography = styled.div`
   width: 100%;
+  margin-bottom: 30px;
 
   .biographyTitle {
+    display: block;
     color: #263238;
     font-weight: 700;
     text-transform: uppercase;
@@ -63,12 +70,21 @@ export const Biography = styled.div`
     line-height: 1.8;
     color: #263238;
     font-weight: 500;
-    margin-bottom: 30px;
+  }
+
+  .truncate {
+    color: #007eff;
+    text-transform: capitalize;
+    text-decoration: none;
+    font-weight: 600;
   }
 `;
 
 export const ExternalLinks = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
 
   a {
     text-decoration: none;

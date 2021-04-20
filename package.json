@@ -19,6 +19,7 @@
     "react-slick": "^0.28.1",
     "react-sticky-el": "^2.0.6",
     "react-stickynode": "^3.0.5",
+    "react-truncate": "^2.4.0",
     "styled-components": "^5.2.3"
   },
   "devDependencies": {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "../../components/Layout";
+import Spinner from "../../components/Spinner";
 import PersonDetails from "../../components/PersonDetails";
 import MovieList from "../../components/MovieList";
 import Header from "../../components/Header";
@@ -12,12 +13,21 @@ import { useGetPersonMovies } from "../../utils/useGetPersonMovies";
 
 function index(props) {
   const [page, setPage] = useState(1);
+  const [personId, setPersonId] = useState();
 
   const router = useRouter();
-  const personId = router?.query?.id;
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    setPersonId(router.query.id);
+  }, [router.isReady, router?.query?.id]);
 
   const { data, isLoading, error } = useGetPersonDetails(personId);
   const { data: personMovies } = useGetPersonMovies(personId, page);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <Layout>

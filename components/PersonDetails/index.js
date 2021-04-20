@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import Truncate from "react-truncate";
 import { ImgBaseURL } from "../../utils/tmdb";
 
 import {
@@ -10,7 +12,21 @@ import {
   ExternalLinks,
 } from "./style";
 
-function index({ personDetails }) {
+function index({ personDetails, lines = 3 }) {
+  const [expanded, setExpanded] = useState(false);
+  const [truncated, setTruncated] = useState(false);
+
+  function handleTruncate(truncated) {
+    if (truncated !== truncated) {
+      setTruncated(true);
+    }
+  }
+
+  function toggleLines(event) {
+    event.preventDefault();
+    setExpanded(!expanded);
+  }
+
   return (
     <Container>
       <ImgContainer>
@@ -23,7 +39,32 @@ function index({ personDetails }) {
 
         <Biography>
           <span className="biographyTitle">The Biography</span>
-          <p className="biography">{personDetails?.biography}</p>
+
+          <Truncate
+            lines={!expanded && lines}
+            className="biography"
+            ellipsis={
+              <span>
+                ...{" "}
+                <a className="truncate" href="#" onClick={toggleLines}>
+                  show more
+                </a>
+              </span>
+            }
+            onTruncate={handleTruncate}
+          >
+            <p className="biography">
+              {personDetails?.biography}{" "}
+              {!truncated && expanded && (
+                <span>
+                  {" "}
+                  <a className="truncate" href="#" onClick={toggleLines}>
+                    show less
+                  </a>
+                </span>
+              )}
+            </p>
+          </Truncate>
         </Biography>
 
         <ExternalLinks>
