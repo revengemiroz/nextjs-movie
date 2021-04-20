@@ -23,7 +23,7 @@ function index(props) {
   }, [router.isReady, router.query.movieId]);
 
   const { data, isLoading, error } = useGetRecommendedMovies(movieId, page);
-  console.log(data);
+
   const {
     data: movieDetails,
     isLoading: movieDetailsLoading,
@@ -43,7 +43,9 @@ function index(props) {
         {data?.results?.length > 0 && (
           <>
             <MovieList movies={data}></MovieList>
-            <Pagination moviesData={data} onClick={setPage} />
+            {data?.page !== data?.total_pages && (
+              <Pagination moviesData={data} onClick={setPage} />
+            )}
           </>
         )}
         {data?.results?.length == 0 && <ErrorRecommended />}
