@@ -8,6 +8,8 @@ export const Container = styled.div`
   place-items: center;
   margin-bottom: 50px;
   font-family: "Poppins";
+  position: relative;
+  transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
 `;
 
 export const ImgContainer = styled.div`
@@ -176,9 +178,9 @@ export const CastContainer = styled.div`
 
 export const LinksContainer = styled.div`
   width: 100%;
+  padding: 60px 0;
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
 
   a {
     text-decoration: none;
@@ -199,7 +201,7 @@ export const LinksContainer = styled.div`
       background-color: #263238;
       color: white;
       border: 1px solid transparent;
-      box-shadow: 0 1rem 5rem rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1rem 5rem var(--shadow-color);
       transition: all 600ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
     }
   }

@@ -11,6 +11,7 @@ import Pagination from "../../components/Pagination";
 import { useGetRecommendedMovies } from "../../utils/useGetRecommendedMovies";
 import { useGetMovieDetails } from "../../utils/useGetMovieDetails";
 import { useGetCastFromMovies } from "../../utils/useGetCastFromMovies";
+import { useGetMoviesTrailers } from "../../utils/useGetMoviesTrailers";
 
 function index(props) {
   const [page, setPage] = useState(1);
@@ -23,6 +24,7 @@ function index(props) {
   }, [router.isReady, router.query.movieId]);
 
   const { data, isLoading, error } = useGetRecommendedMovies(movieId, page);
+  const { data: videos } = useGetMoviesTrailers(movieId);
 
   const {
     data: movieDetails,
@@ -38,6 +40,7 @@ function index(props) {
           movieDetails={movieDetails}
           loading={movieDetailsLoading}
           cast={movieCast}
+          videos={videos}
         />
         <Header mainText="recommended" subText="movies" />
 

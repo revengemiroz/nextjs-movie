@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import ReactPlayer from "react-player";
 
 import Ratings from "../Ratings";
+import Modal from "../Modal";
 import EmptyImage from "../EmptyImage";
 import Spinner from "../Spinner";
 import Cast from "../Cast";
@@ -24,8 +26,9 @@ import {
   LinksContainer,
 } from "./style";
 
-function index({ movieDetails, loading, cast }) {
+function index({ movieDetails, loading, cast, videos }) {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   if (!movieDetails || !cast) {
     return null;
@@ -37,8 +40,37 @@ function index({ movieDetails, loading, cast }) {
 
   const { poster_path } = movieDetails;
 
+  const renderTrailer = (videos) => {
+    if (!videos?.results) return null;
+
+    return (
+      <a
+        onClick={() => {
+          setIsOpen(true);
+        }}
+      >
+        Trailer
+      </a>
+    );
+  };
+
   return (
     <Container>
+      <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
+        <ReactPlayer
+          className="react-player"
+          width="100%"
+          height="100%"
+          controls={true}
+          onReady={(p) => {
+            const player = p.getInternalPlayer();
+            console.log(player, p);
+          }}
+          playing={true}
+          url={`https://www.youtube.com/watch?v=${videos?.results[0]?.key}`}
+        />
+      </Modal>
+
       <ImgContainer>
         {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
         {poster_path && (
@@ -106,7 +138,7 @@ function index({ movieDetails, loading, cast }) {
           <a href={"https://www.imdb.com/title/" + movieDetails?.imdb_id}>
             IMDB
           </a>
-          <a>Trailer</a>
+          {renderTrailer(videos)}
         </LinksContainer>
       </MovieDetails>
     </Container>
