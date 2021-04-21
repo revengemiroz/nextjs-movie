@@ -23,19 +23,24 @@ function index({ movie }) {
   return (
     <>
       <Container>
-        <Link href={process.env.NEXT_PUBLIC_URL + `movie/${movie?.id}`}>
-          <ImgContainer>
-            {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
-            {poster_path ? (
-              <img
-                src={ImgBaseURL + movie?.poster_path}
-                alt={movie?.title}
-                onLoad={() => setImgLoaded(true)}
-              />
-            ) : (
-              <EmptyImage />
-            )}
-          </ImgContainer>
+        <Link
+          href={process.env.NEXT_PUBLIC_URL + `movie/${movie?.id}`}
+          passHref
+        >
+          <a>
+            <ImgContainer>
+              {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
+              {poster_path ? (
+                <img
+                  src={ImgBaseURL + movie?.poster_path}
+                  alt={movie?.title}
+                  onLoad={() => setImgLoaded(true)}
+                />
+              ) : (
+                <EmptyImage />
+              )}
+            </ImgContainer>
+          </a>
         </Link>
 
         <Collection>

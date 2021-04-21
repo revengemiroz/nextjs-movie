@@ -12,7 +12,7 @@ function index(props) {
   const { data, isLoading, error } = useGetUpcomingMovies(page);
 
   return (
-    <Layout>
+    <Layout headTitle="Upcoming Movies">
       <div>
         <Header mainText="upcoming" />
         <MovieList movies={data}></MovieList>

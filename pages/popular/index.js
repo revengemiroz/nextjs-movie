@@ -25,7 +25,7 @@ function index() {
   const { data, isLoading, error } = useGetPopularMovies(page);
 
   return (
-    <Layout>
+    <Layout headTitle="Popular Movies">
       <div>
         <Header mainText="popular" />
         <MovieList movies={data}></MovieList>

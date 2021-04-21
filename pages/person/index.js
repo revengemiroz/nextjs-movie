@@ -30,11 +30,11 @@ function index(props) {
   }
 
   return (
-    <Layout>
+    <Layout headTitle={data?.name}>
       <div>
         <PersonDetails personDetails={data} />
         <Header mainText="also enters in" subText="movies" />
-        <MovieList movies={personMovies}></MovieList>
+        <MovieList movies={personMovies} />
         <Pagination moviesData={personMovies} onClick={setPage} />
       </div>
     </Layout>

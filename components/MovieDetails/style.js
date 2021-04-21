@@ -4,13 +4,14 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(400px, 600px) 1fr;
+  grid-template-columns: minmax(200px, 400px) 1fr;
   place-items: center;
   margin-bottom: 50px;
   font-family: "Poppins";
 `;
 
 export const ImgContainer = styled.div`
+  padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,8 +23,9 @@ export const ImgContainer = styled.div`
   img {
     max-width: 100%;
     max-height: 100%;
-    display: block;
     object-fit: cover;
+    border-radius: 0.8rem;
+    box-shadow: 0rem 2rem 5rem var(--shadow-color-dark);
   }
 `;
 
@@ -37,6 +39,7 @@ export const MovieDetails = styled.div`
   justify-content: center;
   overflow: hidden;
   flex: 1;
+  padding-left: 3rem;
   max-width: 750px;
   position: relative;
 `;
@@ -44,12 +47,13 @@ export const MovieDetails = styled.div`
 export const MovieHeader = styled.div`
   .title {
     color: #263238;
-    font-size: 40px;
-    font-weight: 300;
-    line-height: 60px;
+    font-size: 4rem;
+    font-weight: 200;
+    line-height: 1.2;
     letter-spacing: -0.5px;
     text-transform: uppercase;
     display: block;
+    margin-bottom: 0.5rem;
   }
 
   .tagline {

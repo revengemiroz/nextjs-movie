@@ -28,10 +28,11 @@ function index(props) {
     data: movieDetails,
     isLoading: movieDetailsLoading,
   } = useGetMovieDetails(movieId);
+
   const { data: movieCast } = useGetCastFromMovies(movieId);
 
   return (
-    <Layout>
+    <Layout headTitle={movieDetails?.title}>
       <div>
         <MovieDetails
           movieDetails={movieDetails}
