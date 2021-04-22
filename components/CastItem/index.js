@@ -24,7 +24,10 @@ function index({ person }) {
   return (
     <Link
       key={person?.id}
-      href={baseURL + `/person/?id=${person?.id}`}
+      href={{
+        pathname: `/person/`,
+        query: { id: person.id },
+      }}
       passHref
     >
       <ImageContainer>
