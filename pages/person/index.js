@@ -25,6 +25,10 @@ function index(props) {
   const { data, isLoading, error } = useGetPersonDetails(personId);
   const { data: personMovies } = useGetPersonMovies(personId, page);
 
+  if (!personMovies || !data) {
+    return null;
+  }
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -34,8 +38,12 @@ function index(props) {
       <div>
         <PersonDetails personDetails={data} />
         <Header mainText="also enters in" subText="movies" />
-        <MovieList movies={personMovies} />
-        <Pagination moviesData={personMovies} onClick={setPage} />
+        {personMovies && (
+          <>
+            <MovieList movies={personMovies} />
+            <Pagination moviesData={personMovies} onClick={setPage} />
+          </>
+        )}
       </div>
     </Layout>
   );

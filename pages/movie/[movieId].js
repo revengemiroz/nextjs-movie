@@ -33,6 +33,10 @@ function index(props) {
 
   const { data: movieCast } = useGetCastFromMovies(movieId);
 
+  if (!data) {
+    return null;
+  }
+
   return (
     <Layout headTitle={movieDetails?.title}>
       <div>

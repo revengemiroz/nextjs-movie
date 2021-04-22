@@ -15,6 +15,7 @@ function index({ person }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setBaseURL(window.location.origin);
+      console.log(window.location.origin);
     }
   }, []);
 
@@ -23,10 +24,7 @@ function index({ person }) {
   return (
     <Link
       key={person?.id}
-      href={{
-        pathname: baseURL + `person`,
-        query: { id: person.id },
-      }}
+      href={baseURL + `/person/?id=${person?.id}`}
       passHref
     >
       <ImageContainer>
