@@ -11,6 +11,10 @@ function index({ children, headTitle }) {
         <Head>
           <title>{headTitle}</title>
           <meta
+            http-equiv="Content-Security-Policy"
+            content="upgrade-insecure-requests"
+          ></meta>
+          <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
