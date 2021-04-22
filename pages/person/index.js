@@ -22,8 +22,8 @@ function index(props) {
     setPersonId(router.query.id);
   }, [router.isReady, router?.query?.id]);
 
-  const { data, isLoading, error } = useGetPersonDetails(personId);
-  const { data: personMovies } = useGetPersonMovies(personId, page);
+  const { data, isLoading, error } = useGetPersonDetails(personId && personId);
+  const { data: personMovies } = useGetPersonMovies(personId && personId, page);
 
   if (!personMovies || !data) {
     return null;
