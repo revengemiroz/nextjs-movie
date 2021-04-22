@@ -22,6 +22,8 @@ function index(props) {
     setPersonId(router.query.id);
   }, [router.isReady, router?.query?.id]);
 
+  console.log(router.query.id);
+
   const { data, isLoading, error } = useGetPersonDetails(personId);
   const { data: personMovies } = useGetPersonMovies(personId, page);
 
