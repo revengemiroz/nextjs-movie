@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import EmptyImage from "../EmptyImage";
@@ -19,14 +19,18 @@ import {
 function index({ movie }) {
   const { poster_path } = movie;
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [baseURL, setBaseURL] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseURL(window.location.origin);
+    }
+  }, []);
 
   return (
     <>
       <Container>
-        <Link
-          href={process.env.NEXT_PUBLIC_URL + `movie/${movie?.id}`}
-          passHref
-        >
+        <Link href={baseURL + `/movie/${movie?.id}`} passHref>
           <a>
             <ImgContainer>
               {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
