@@ -10,6 +10,13 @@ import { ImageContainer } from "./style";
 
 function index({ person }) {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [baseURL, setBaseURL] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseURL(window.location.origin);
+    }
+  }, []);
 
   const { profile_path } = person;
 
@@ -17,7 +24,7 @@ function index({ person }) {
     <Link
       key={person?.id}
       href={{
-        pathname: process.env.NEXT_PUBLIC_URL + `person`,
+        pathname: baseURL + `person`,
         query: { id: person.id },
       }}
       passHref

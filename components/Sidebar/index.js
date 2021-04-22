@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Sticky from "react-stickynode";
@@ -41,6 +41,14 @@ const MyLink = React.forwardRef(({ onClick, href, children }, ref) => {
 });
 
 function index(props) {
+  const [baseURL, setBaseURL] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseURL(window.location.origin);
+    }
+  }, []);
+
   const { data, isLoading, error } = useGetAllGenres();
 
   if (isLoading) {
@@ -106,7 +114,7 @@ function index(props) {
   return (
     <Sticky enabled={true} top={40}>
       <Container>
-        <Link href={process.env.NEXT_PUBLIC_URL + "popular"}>
+        <Link href={baseURL + "popular"}>
           <HeaderLogo>
             <Image
               src="/joker.png"

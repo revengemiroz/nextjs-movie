@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ReactPlayer from "react-player";
@@ -28,6 +28,13 @@ import {
 function index({ movieDetails, loading, cast, videos }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [baseURL, setBaseURL] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseURL(window.location.origin);
+    }
+  }, []);
 
   if (!movieDetails || !cast || !videos) {
     return null;
@@ -114,7 +121,7 @@ function index({ movieDetails, loading, cast, videos }) {
               <Link
                 key={genre.id}
                 href={{
-                  pathname: process.env.NEXT_PUBLIC_URL + `genre`,
+                  pathname: baseURL + `genre`,
                   query: { id: genre.id },
                 }}
                 passHref

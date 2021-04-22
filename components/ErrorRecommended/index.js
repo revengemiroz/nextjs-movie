@@ -1,8 +1,17 @@
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 import { Container, TextContainer, ImageContainer, GoHome } from "./style";
 
 function index(props) {
+  const [baseURL, setBaseURL] = useState(undefined);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setBaseURL(window.location.origin);
+    }
+  }, []);
+
   return (
     <Container>
       <TextContainer>
@@ -15,7 +24,7 @@ function index(props) {
           alt="empty"
         />
       </ImageContainer>
-      <Link href={process.env.NEXT_PUBLIC_URL + "popular"}>
+      <Link href={baseURL + "popular"}>
         <GoHome>
           {/* use this to convert the featherIcons into raw svg code to change the color on hover */}
           {/* https://react-svgr.com/playground/ */}
