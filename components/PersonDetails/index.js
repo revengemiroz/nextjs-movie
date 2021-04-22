@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import Truncate from "react-truncate";
+
+import EmptyImage from "../EmptyImage";
+import Spinner from "../Spinner";
+
 import { ImgBaseURL } from "../../utils/tmdb";
 
 import {
@@ -13,8 +17,15 @@ import {
 } from "./style";
 
 function index({ personDetails, lines = 3 }) {
+  const [imgLoaded, setImgLoaded] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [truncated, setTruncated] = useState(false);
+
+  if (!personDetails) {
+    return null;
+  }
+
+  const { profile_path } = personDetails;
 
   function handleTruncate(truncated) {
     if (truncated !== truncated) {
@@ -30,7 +41,15 @@ function index({ personDetails, lines = 3 }) {
   return (
     <Container>
       <ImgContainer>
-        <img src={ImgBaseURL + personDetails?.profile_path} />
+        {!imgLoaded && profile_path ? <Spinner type="black" /> : null}
+        {profile_path && (
+          <img
+            src={ImgBaseURL + personDetails?.profile_path}
+            alt={personDetails?.profile_path}
+            onLoad={() => setImgLoaded(true)}
+          />
+        )}
+        {profile_path == null && <EmptyImage user={false} />}
       </ImgContainer>
 
       <PersonDetails>

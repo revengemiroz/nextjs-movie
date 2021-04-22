@@ -46,10 +46,8 @@ function index(props) {
 
         {data?.results?.length > 0 && (
           <>
-            <MovieList movies={data}></MovieList>
-            {data?.page !== data?.total_pages && (
-              <Pagination moviesData={data} onClick={setPage} />
-            )}
+            <MovieList movies={data} />
+            <Pagination moviesData={data} onClick={setPage} movieId={movieId} />
           </>
         )}
         {data?.results?.length == 0 && <ErrorRecommended />}

@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import tmdb from "./tmdb";
 
 export const getMoviesTrailersQueryKey = (movieId) => [
-  "useGetMoviesTrailersQueryKey",
+  "useGetMoviesTrailers",
   movieId,
 ];
 

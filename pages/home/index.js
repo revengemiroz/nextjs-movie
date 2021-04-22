@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "./style";
 import { useQuery } from "react-query";
 
 const fetchData = async () => {
@@ -19,7 +18,7 @@ function home({ ninjas }) {
   const { data } = useQuery("getMovies", fetchData);
   console.log(data, "this is data");
 
-  return <Container>this is home page</Container>;
+  return <div>this is home page</div>;
 }
 
 export default home;

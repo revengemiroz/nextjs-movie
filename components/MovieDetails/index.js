@@ -14,7 +14,6 @@ import { ImgBaseURL } from "../../utils/tmdb";
 import {
   Container,
   ImgContainer,
-  MovieContainer,
   MovieDetails,
   MovieHeader,
   RatingsContainer,
@@ -30,7 +29,7 @@ function index({ movieDetails, loading, cast, videos }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!movieDetails || !cast) {
+  if (!movieDetails || !cast || !videos) {
     return null;
   }
 
@@ -43,34 +42,41 @@ function index({ movieDetails, loading, cast, videos }) {
   const renderTrailer = (videos) => {
     if (!videos?.results) return null;
 
+    const Trailers = videos?.results?.filter(
+      (video) => video.type === "Trailer" && video.site === "YouTube"
+    );
+
+    const { key } = Trailers?.pop() ?? false;
+
+    if (!key) {
+      return null;
+    }
+
     return (
-      <a
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
-        Trailer
-      </a>
+      <>
+        <a
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        >
+          Trailer
+        </a>
+        <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
+          <ReactPlayer
+            className="react-player"
+            width="100%"
+            height="100%"
+            controls={true}
+            playing={true}
+            url={`https://www.youtube.com/watch?v=${key}`}
+          />
+        </Modal>
+      </>
     );
   };
 
   return (
     <Container>
-      <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
-        <ReactPlayer
-          className="react-player"
-          width="100%"
-          height="100%"
-          controls={true}
-          onReady={(p) => {
-            const player = p.getInternalPlayer();
-            console.log(player, p);
-          }}
-          playing={true}
-          url={`https://www.youtube.com/watch?v=${videos?.results[0]?.key}`}
-        />
-      </Modal>
-
       <ImgContainer>
         {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
         {poster_path && (
