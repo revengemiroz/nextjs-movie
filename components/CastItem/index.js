@@ -22,14 +22,7 @@ function index({ person }) {
   const { profile_path } = person;
 
   return (
-    <Link
-      key={person?.id}
-      href={{
-        pathname: `/person/`,
-        query: { id: person.id },
-      }}
-      passHref
-    >
+    <Link key={person?.id} href={`/person/?id=${person?.id}`} passHref>
       <ImageContainer>
         {!imgLoaded && profile_path ? <Spinner type="black" /> : null}
         {profile_path && (
