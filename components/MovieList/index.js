@@ -10,7 +10,7 @@ function index({ movies }) {
   }
 
   return (
-    <Container>
+    <Container className="movie-list">
       {movies?.results?.map((movie) => (
         <MovieCard key={movie?.id} movie={movie} />
       ))}

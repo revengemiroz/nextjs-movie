@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { animateScroll as scroll } from "react-scroll";
 
 import Layout from "../../components/Layout";
 import MovieDetails from "../../components/MovieDetails";
@@ -22,6 +23,13 @@ function index(props) {
     if (!router.isReady) return;
     setMovieId(router.query.movieId);
   }, [router.isReady, router.query.movieId]);
+
+  useEffect(() => {
+    scroll.scrollToTop("movie-list", {
+      smooth: true,
+      offset: 20,
+    });
+  }, [page]);
 
   const { data, isLoading, error } = useGetRecommendedMovies(movieId, page);
   const { data: videos } = useGetMoviesTrailers(movieId);
