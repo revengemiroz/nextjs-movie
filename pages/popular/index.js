@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
 import Layout from "../../components/Layout";
+import SearchBar from "../../components/SearchBar";
 import MovieList from "../../components/MovieList";
 import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
@@ -27,6 +28,7 @@ function index() {
   return (
     <Layout headTitle="Popular Movies">
       <div>
+        <SearchBar />
         <Header mainText="popular" />
         <MovieList movies={data}></MovieList>
         <Pagination moviesData={data} onClick={setPage} />
