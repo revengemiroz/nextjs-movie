@@ -1,35 +1,15 @@
-import Head from "next/head";
-import { useQuery } from "react-query";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-const fetchData = async () => {
-  const res = await fetch(
-    "https://api.themoviedb.org/3/movie/popular?api_key=e9f2990250f1310ec6a644a89b5a2053&language=en-US&page=1"
-  );
-  const data = await res.json();
-  return data?.results;
-};
+export default function Home() {
+  const router = useRouter();
+  const path = router.pathname;
 
-export async function getStaticProps() {
-  const data = await fetchData();
-  return { props: { ninjas: data } };
-}
+  useEffect(() => {
+    if (path == "/") {
+      router.push("/popular", undefined, { shallow: true });
+    }
+  }, []);
 
-export default function Home({ ninjas }) {
-  const { data, isLoading, error } = useQuery("fetch", fetchData, {
-    initialData: ninjas,
-  });
-
-  console.log(data);
-
-  if (isLoading) {
-    return <p>loading...</p>;
-  }
-
-  return (
-    <div>
-      {data?.map((user) => (
-        <p key={user.id}>{user.title}</p>
-      ))}
-    </div>
-  );
+  return <div></div>;
 }
