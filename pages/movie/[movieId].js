@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
 import Layout from "../../components/Layout";
+import SearchBar from "../../components/SearchBar";
 import MovieDetails from "../../components/MovieDetails";
 import ErrorRecommended from "../../components/ErrorRecommended";
 import Header from "../../components/Header";
@@ -48,6 +49,7 @@ function index(props) {
   return (
     <Layout headTitle={movieDetails?.title}>
       <div>
+        <SearchBar />
         <MovieDetails
           movieDetails={movieDetails}
           loading={movieDetailsLoading}

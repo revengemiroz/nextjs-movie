@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 import Layout from "../../components/Layout";
+import SearchBar from "../../components/SearchBar";
 import Spinner from "../../components/Spinner";
 import PersonDetails from "../../components/PersonDetails";
 import MovieList from "../../components/MovieList";
@@ -36,6 +37,7 @@ function index(props) {
   return (
     <Layout headTitle={data?.name}>
       <div>
+        <SearchBar />
         <PersonDetails personDetails={data} />
         <Header mainText="also enters in" subText="movies" />
         {personMovies && (
