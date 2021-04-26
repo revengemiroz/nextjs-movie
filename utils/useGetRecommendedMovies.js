@@ -5,15 +5,17 @@ export const useGetRecommendedMovies = (movieId, page) =>
   useQuery(
     ["useGetRecommendedMovies", movieId, page],
     async () => {
-      const { data } = await tmdb.get(
-        movieId && `/movie/${movieId}/recommendations`,
-        {
-          params: {
-            page,
-          },
-        }
-      );
-      return data;
+      try {
+        const { data } = await tmdb.get(
+          movieId && `/movie/${movieId}/recommendations`,
+          {
+            params: {
+              page,
+            },
+          }
+        );
+        return data;
+      } catch (error) {}
     },
     {
       keepPreviousData: true,

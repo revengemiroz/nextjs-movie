@@ -7,8 +7,12 @@ export const useGetMovieDetails = (movieId) =>
   useQuery(
     getMovieQueryKey(movieId),
     async () => {
-      const { data } = await tmdb.get(`movie/${movieId}`);
-      return data ?? {};
+      try {
+        const { data } = await tmdb.get(`movie/${movieId}`);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
     },
     {
       keepPreviousData: true,

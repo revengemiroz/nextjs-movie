@@ -10,8 +10,12 @@ export const useGetMoviesTrailers = (movieId) =>
   useQuery(
     getMoviesTrailersQueryKey(movieId),
     async () => {
-      const { data } = await tmdb.get(`movie/${movieId}/videos`);
-      return data ?? {};
+      try {
+        const { data } = await tmdb.get(movieId && `movie/${movieId}/videos`);
+        return data ?? {};
+      } catch (error) {
+        console.log(error);
+      }
     },
     {
       keepPreviousData: true,

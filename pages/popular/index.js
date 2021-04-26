@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useQuery } from "react-query";
 import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
@@ -24,14 +26,15 @@ function index() {
   }, [page]);
 
   const { data, isLoading, error } = useGetPopularMovies(page);
+  console.log(data);
 
   return (
     <Layout headTitle="Popular Movies">
       <div>
         <SearchBar />
         <Header mainText="popular" />
-        <MovieList movies={data}></MovieList>
-        <Pagination moviesData={data} onClick={setPage} />
+        <MovieList movies={data?.data}></MovieList>
+        <Pagination moviesData={data?.data} onClick={setPage} />
       </div>
     </Layout>
   );
