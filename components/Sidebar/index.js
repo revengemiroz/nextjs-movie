@@ -51,10 +51,6 @@ function index(props) {
 
   const { data, isLoading, error } = useGetAllGenres();
 
-  if (isLoading) {
-    return <p>wait loading...</p>;
-  }
-
   const getAllStaticGenres = (genres) => {
     return (
       <>
@@ -81,6 +77,9 @@ function index(props) {
   };
 
   const getAllDynamicGenres = (genres) => {
+    if (!data) {
+      return null;
+    }
     return (
       <GenreContainer>
         <h2>Genres</h2>

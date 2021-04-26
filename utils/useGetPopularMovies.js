@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-export const useGetPopularMovies = (page = 1) =>
+export const useGetPopularMovies = (page) =>
   useQuery(
     ["getPopularMovies", page],
     async () => {

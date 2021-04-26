@@ -26,7 +26,6 @@ function index() {
   }, [page]);
 
   const { data, isLoading, error } = useGetPopularMovies(page);
-  console.log(data);
 
   return (
     <Layout headTitle="Popular Movies">
