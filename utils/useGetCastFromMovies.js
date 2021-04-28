@@ -1,15 +1,17 @@
 import { useQuery } from "react-query";
-import tmdb from "./tmdb";
+import axios from "axios";
 
-export const useGetCastFromMovies = (movieId = 399566) =>
+export const useGetCastFromMovies = (movieId) =>
   useQuery(
     ["useGetCastFromMovies", movieId],
     async () => {
       try {
-        const { data } = await tmdb.get(`movie/${movieId}/credits`);
-        return data ?? {};
+        const { data } = await axios.get(
+          movieId && `/api/castDetails?movieId=${movieId}`
+        );
+        return data;
       } catch (error) {
-        console.log(error);
+        return;
       }
     },
     {

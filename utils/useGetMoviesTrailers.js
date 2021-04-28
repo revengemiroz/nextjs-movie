@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import tmdb from "./tmdb";
+import axios from "axios";
 
 export const getMoviesTrailersQueryKey = (movieId) => [
   "useGetMoviesTrailers",
@@ -11,10 +11,12 @@ export const useGetMoviesTrailers = (movieId) =>
     getMoviesTrailersQueryKey(movieId),
     async () => {
       try {
-        const { data } = await tmdb.get(movieId && `movie/${movieId}/videos`);
-        return data ?? {};
+        const { data } = await axios.get(
+          movieId && `/api/trailer/?movieId=${movieId}`
+        );
+        return data;
       } catch (error) {
-        console.log(error);
+        return;
       }
     },
     {

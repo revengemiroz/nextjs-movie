@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import tmdb from "./tmdb";
+import axios from "axios";
 
 export const getGenreMovieQueryKey = (genreId, page) => [
   "getMoviesFromGenre",
@@ -11,13 +11,13 @@ export const useGetMoviesFromGenre = (genreId, page) =>
   useQuery(
     getGenreMovieQueryKey(genreId, page),
     async () => {
-      const { data } = await tmdb.get(`/discover/movie`, {
+      const { data } = await axios.get(`/api/moviesFromGenre`, {
         params: {
-          with_genres: genreId ?? 35,
+          with_genres: genreId,
           page: page,
         },
       });
-      return data ?? {};
+      return data;
     },
     {
       keepPreviousData: true,

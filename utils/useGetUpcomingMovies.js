@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
-import tmdb from "./tmdb";
+import axios from "axios";
 
 export const useGetUpcomingMovies = (page) =>
   useQuery(
     ["getUpcomingMovies", page],
     async () => {
-      const { data } = await tmdb.get(`movie/upcoming`, {
+      const { data } = await axios.get(`/api/upcoming`, {
         params: {
           page: page,
         },

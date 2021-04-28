@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { animateScroll as scroll } from "react-scroll";
 
 import Layout from "../../components/Layout";
 import SearchBar from "../../components/SearchBar";
@@ -23,8 +24,14 @@ function index(props) {
     setPersonId(router.query.id);
   }, [router.isReady, router?.query?.id]);
 
-  const { data, isLoading, error } = useGetPersonDetails(personId && personId);
-  const { data: personMovies } = useGetPersonMovies(personId && personId, page);
+  useEffect(() => {
+    scroll.scrollToTop({
+      smooth: true,
+    });
+  }, [page]);
+
+  const { data, isLoading, error } = useGetPersonDetails(personId);
+  const { data: personMovies } = useGetPersonMovies(personId, page);
 
   if (!personMovies || !data) {
     return null;

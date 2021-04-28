@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 
-import tmdb from "../utils/tmdb";
+import axios from "axios";
 
 export const searchMoviesQueryKey = (searchQuery, page) => [
   "getMoviesSearched",
@@ -12,7 +12,7 @@ export const useGetMoviesSearched = (searchQuery, page = 1) =>
   useQuery(
     searchMoviesQueryKey(searchQuery, page),
     async () => {
-      const { data } = await tmdb.get(`/search/movie`, {
+      const { data } = await axios.get(searchQuery && `/api/search`, {
         params: {
           query: searchQuery,
           page: page,

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { animateScroll as scroll } from "react-scroll";
 
 import Layout from "../../components/Layout";
 import SearchBar from "../../components/SearchBar";
@@ -17,8 +18,14 @@ function index() {
 
   useEffect(() => {
     if (!router?.isReady) return;
-    setSearchQuery(router?.query?.searchquery);
-  }, [router.isReady, router.query.searchquery]);
+    setSearchQuery(router?.query?.searchQuery);
+  }, [router.isReady, router.query.searchQuery]);
+
+  useEffect(() => {
+    scroll.scrollToTop({
+      smooth: true,
+    });
+  }, [page]);
 
   const { data, isLoading, error } = useGetMoviesSearched(searchQuery, page);
 

@@ -33,7 +33,12 @@ export default function index({ search }) {
       return;
     }
     setInput("");
-    router.push(`/search/${input}`);
+    router.push({
+      pathname: `/search`,
+      query: {
+        searchQuery: input,
+      },
+    });
     setState(false);
   }
 

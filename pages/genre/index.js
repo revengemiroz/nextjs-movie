@@ -18,7 +18,7 @@ function index(props) {
   const genreId = query.id;
 
   const { data, isLoading, error } = useGetMoviesFromGenre(genreId, page);
-  const genreTitle = getTitleFromGenreId(data, genreId);
+  // const genreTitle = getTitleFromGenreId(data, genreId);
 
   return (
     <Layout>

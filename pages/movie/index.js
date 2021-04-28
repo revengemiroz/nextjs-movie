@@ -26,25 +26,29 @@ function index(props) {
   }, [router.isReady, router.query.movieId]);
 
   useEffect(() => {
-    scroll.scrollToTop("movie-list", {
+    scroll.scrollToTop({
       smooth: true,
-      offset: 20,
     });
   }, [page]);
-
-  const {
-    data: recommendedMovies,
-    isLoading,
-    error: recommendedError,
-  } = useGetRecommendedMovies(movieId, page);
-  const { data: videos } = useGetMoviesTrailers(movieId);
 
   const {
     data: movieDetails,
     isLoading: movieDetailsLoading,
   } = useGetMovieDetails(movieId);
 
+  const {
+    data: recommendedMovies,
+    isLoading,
+    error: recommendedError,
+  } = useGetRecommendedMovies(movieId, page);
+
+  const { data: videos } = useGetMoviesTrailers(movieId);
+
   const { data: movieCast } = useGetCastFromMovies(movieId);
+
+  if (movieDetailsLoading) {
+    return <p>loading...</p>;
+  }
 
   if (!recommendedMovies) {
     return null;
@@ -54,12 +58,14 @@ function index(props) {
     <Layout headTitle={movieDetails?.title}>
       <div>
         <SearchBar />
-        <MovieDetails
-          movieDetails={movieDetails}
-          loading={movieDetailsLoading}
-          cast={movieCast}
-          videos={videos}
-        />
+        {movieDetails && (
+          <MovieDetails
+            movieDetails={movieDetails}
+            loading={movieDetailsLoading}
+            cast={movieCast}
+            videos={videos}
+          />
+        )}
         <Header mainText="recommended" subText="movies" />
 
         {recommendedMovies?.results?.length > 0 && (

@@ -5,7 +5,7 @@ export default axios.create({
   params: {
     api_key: process.env.api_key,
   },
-  timeout: 1000,
+  timeout: 3000,
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",

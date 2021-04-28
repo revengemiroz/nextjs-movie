@@ -15,7 +15,6 @@ function index({ person }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setBaseURL(window.location.origin);
-      console.log(window.location.origin);
     }
   }, []);
 
