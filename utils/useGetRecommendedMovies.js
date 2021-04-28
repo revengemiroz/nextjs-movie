@@ -1,16 +1,16 @@
 import { useQuery } from "react-query";
-import tmdb from "./tmdb";
+import axios from "axios";
 
 export const useGetRecommendedMovies = (movieId, page) =>
   useQuery(
     ["useGetRecommendedMovies", movieId, page],
     async () => {
       try {
-        const { data } = await tmdb.get(
-          movieId && `/movie/${movieId}/recommendations`,
+        const { data } = await axios.get(
+          movieId && `/api/recommendation?movieId=${movieId}`,
           {
             params: {
-              page,
+              page: page,
             },
           }
         );

@@ -30,7 +30,13 @@ function index({ movie }) {
   return (
     <>
       <Container>
-        <Link href={baseURL + `/movie/${movie?.id}`} passHref>
+        <Link
+          href={{
+            pathname: `${baseURL}/movie`,
+            query: { movieId: movie?.id },
+          }}
+          passHref
+        >
           <a>
             <ImgContainer>
               {!imgLoaded && poster_path ? <Spinner type="black" /> : null}

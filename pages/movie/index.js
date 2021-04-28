@@ -32,7 +32,11 @@ function index(props) {
     });
   }, [page]);
 
-  const { data, isLoading, error } = useGetRecommendedMovies(movieId, page);
+  const {
+    data: recommendedMovies,
+    isLoading,
+    error: recommendedError,
+  } = useGetRecommendedMovies(movieId, page);
   const { data: videos } = useGetMoviesTrailers(movieId);
 
   const {
@@ -42,7 +46,7 @@ function index(props) {
 
   const { data: movieCast } = useGetCastFromMovies(movieId);
 
-  if (!data) {
+  if (!recommendedMovies) {
     return null;
   }
 
@@ -58,13 +62,17 @@ function index(props) {
         />
         <Header mainText="recommended" subText="movies" />
 
-        {data?.results?.length > 0 && (
+        {recommendedMovies?.results?.length > 0 && (
           <>
-            <MovieList movies={data} />
-            <Pagination moviesData={data} onClick={setPage} movieId={movieId} />
+            <MovieList movies={recommendedMovies} />
+            <Pagination
+              moviesData={recommendedMovies}
+              onClick={setPage}
+              movieId={movieId}
+            />
           </>
         )}
-        {data?.results?.length == 0 && <ErrorRecommended />}
+        {recommendedMovies?.results?.length == 0 && <ErrorRecommended />}
       </div>
     </Layout>
   );
