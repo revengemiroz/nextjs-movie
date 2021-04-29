@@ -12,6 +12,10 @@ export const Container = styled.div`
     letter-spacing: 1.1px;
     margin: 0px 0px 1rem 1rem;
   }
+
+  @media ${({ theme }) => theme.mediaQueries.medium} {
+    display: none;
+  }
 `;
 
 export const GenreContainer = styled.div`

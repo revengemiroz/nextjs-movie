@@ -11,6 +11,7 @@ export const useGetMovieDetails = (movieId) =>
         const { data } = await axios.get(
           movieId && `/api/movieDetails?movieId=${movieId}`
         );
+
         return data;
       } catch (error) {
         return;

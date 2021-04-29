@@ -11,8 +11,8 @@ export const Container = styled.div`
 
 export const StarContainer = styled.div`
   margin-right: 5px;
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
 
   img {
     width: 100%;

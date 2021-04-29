@@ -12,4 +12,4 @@ export default axios.create({
   },
 });
 
-export const ImgBaseURL = `https://image.tmdb.org/t/p/w500`;
+export const ImgBaseURL = `https://image.tmdb.org/t/p/`;

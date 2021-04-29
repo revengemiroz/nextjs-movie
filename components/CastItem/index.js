@@ -26,7 +26,7 @@ function index({ person }) {
         {!imgLoaded && profile_path ? <Spinner type="black" /> : null}
         {profile_path && (
           <img
-            src={ImgBaseURL + person?.profile_path}
+            src={ImgBaseURL + "w185" + person?.profile_path}
             alt={person?.profile_path}
             onLoad={() => setImgLoaded(true)}
           />

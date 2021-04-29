@@ -37,20 +37,19 @@ function index({ movie }) {
           }}
           passHref
         >
-          <a>
-            <ImgContainer>
-              {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
-              {poster_path ? (
-                <img
-                  src={ImgBaseURL + movie?.poster_path}
-                  alt={movie?.title}
-                  onLoad={() => setImgLoaded(true)}
-                />
-              ) : (
-                <EmptyImage />
-              )}
-            </ImgContainer>
-          </a>
+          <ImgContainer>
+            {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
+            {poster_path ? (
+              <img
+                style={!imgLoaded ? { display: "none" } : {}}
+                src={ImgBaseURL + "w342" + movie?.poster_path}
+                alt={movie?.title}
+                onLoad={() => setImgLoaded(true)}
+              />
+            ) : (
+              <EmptyImage />
+            )}
+          </ImgContainer>
         </Link>
 
         <Collection>

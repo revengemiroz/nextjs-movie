@@ -5,6 +5,12 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 250px auto;
   position: relative;
+
+  @media ${({ theme }) => theme.mediaQueries.medium} {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 250px 1fr;
+  }
 `;
 
 export const RightSide = styled.div`

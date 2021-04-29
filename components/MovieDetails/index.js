@@ -25,7 +25,7 @@ import {
   LinksContainer,
 } from "./style";
 
-function index({ movieDetails, loading, cast, videos }) {
+function index({ movieDetails, cast, videos }) {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [baseURL, setBaseURL] = useState(undefined);
@@ -36,12 +36,8 @@ function index({ movieDetails, loading, cast, videos }) {
     }
   }, []);
 
-  if (!movieDetails || !cast || !videos) {
+  if (!movieDetails) {
     return null;
-  }
-
-  if (loading) {
-    return <Spinner />;
   }
 
   const { poster_path } = movieDetails;
@@ -88,7 +84,7 @@ function index({ movieDetails, loading, cast, videos }) {
         {!imgLoaded && poster_path ? <Spinner type="black" /> : null}
         {poster_path && (
           <img
-            src={ImgBaseURL + movieDetails?.poster_path}
+            src={ImgBaseURL + "w780" + movieDetails?.poster_path}
             alt={movieDetails?.id}
             onLoad={() => setImgLoaded(true)}
           />

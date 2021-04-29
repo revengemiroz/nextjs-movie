@@ -34,6 +34,7 @@ function index(props) {
   const {
     data: movieDetails,
     isLoading: movieDetailsLoading,
+    error: movieDetailsError,
   } = useGetMovieDetails(movieId);
 
   const {
@@ -42,30 +43,29 @@ function index(props) {
     error: recommendedError,
   } = useGetRecommendedMovies(movieId, page);
 
-  const { data: videos } = useGetMoviesTrailers(movieId);
+  const {
+    data: trailer,
+    isLoading: trailerLoading,
+    error: trailerError,
+  } = useGetMoviesTrailers(movieId);
 
-  const { data: movieCast } = useGetCastFromMovies(movieId);
-
-  if (movieDetailsLoading) {
-    return <p>loading...</p>;
-  }
-
-  if (!recommendedMovies) {
-    return null;
-  }
+  const {
+    data: movieCast,
+    isLoading: movieCastLoading,
+    error: movieCastError,
+  } = useGetCastFromMovies(movieId);
 
   return (
     <Layout headTitle={movieDetails?.title}>
       <div>
         <SearchBar />
-        {movieDetails && (
-          <MovieDetails
-            movieDetails={movieDetails}
-            loading={movieDetailsLoading}
-            cast={movieCast}
-            videos={videos}
-          />
-        )}
+
+        <MovieDetails
+          movieDetails={movieDetails}
+          cast={movieCast}
+          videos={trailer}
+        />
+
         <Header mainText="recommended" subText="movies" />
 
         {recommendedMovies?.results?.length > 0 && (
