@@ -1,10 +1,16 @@
 import Head from "next/head";
+import Sticky from "react-stickynode";
 
 import Sidebar from "../Sidebar";
+import MenuMobile from "../MenuMobile";
+
+import useWindowResize from "../../utils/useWindowResize";
 
 import { Container, RightSide } from "./style";
 
 function index({ children, headTitle }) {
+  const size = useWindowResize();
+
   return (
     <Container>
       {headTitle && (
@@ -20,8 +26,18 @@ function index({ children, headTitle }) {
           />
         </Head>
       )}
-      <Sidebar />
-      <RightSide>{children}</RightSide>
+      {size.width > 1280 ? (
+        <Sticky enabled={true}>
+          <Sidebar />
+        </Sticky>
+      ) : (
+        <MenuMobile />
+      )}
+
+      <RightSide>
+        {size.width}px / {size.height}px
+        {children}
+      </RightSide>
     </Container>
   );
 }

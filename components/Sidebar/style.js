@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  border-right: 1px solid rgba(84, 110, 122, 0.2);
+  border-right: ${({ isMobile }) =>
+    isMobile ? 0 : "1px solid rgba(84, 110, 122, 0.2)"};
   padding: 20px 20px 20px 20px;
+  margin: 20px 0;
   flex: 1;
 
   h2 {
@@ -11,10 +13,6 @@ export const Container = styled.div`
     text-transform: uppercase;
     letter-spacing: 1.1px;
     margin: 0px 0px 1rem 1rem;
-  }
-
-  @media ${({ theme }) => theme.mediaQueries.medium} {
-    display: none;
   }
 `;
 
@@ -45,7 +43,8 @@ export const OptionLink = styled.a`
     font-weight: 600;
     line-height: 1;
     opacity: 0.6;
-    color: var(--color-primary-light);
+    color: ${({ isMobile }) =>
+      isMobile ? "white" : "var(--color-primary-light)"};
     border: ${({ selected }) =>
       selected ? "1px solid var(--color-primary)" : "1px solid transparent"};
     border-radius: 2rem;
@@ -55,6 +54,8 @@ export const OptionLink = styled.a`
 
     span {
       margin-left: 0.5rem;
+      color: ${({ isMobile }) =>
+        isMobile ? "white" : "var(--color-primary-light)"};
     }
   }
 
@@ -79,12 +80,16 @@ export const HeaderLogo = styled.div`
 export const SvgContainer = styled.div`
   width: 100%;
   height: 3rem;
-  margin-top: 3rem;
+  margin: 3rem 0;
 
   img {
     max-width: 100%;
     max-height: 100%;
     display: block;
     object-fit: contain;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.large} {
+    height: 1.5rem;
   }
 `;

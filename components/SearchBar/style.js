@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const SearchContainer = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  @media ${({ theme }) => theme.mediaQueries.large} {
+    display: none;
+  }
 `;
 
 export const Button = styled.button`
