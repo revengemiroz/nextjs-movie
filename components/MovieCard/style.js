@@ -28,6 +28,10 @@ export const ImgContainer = styled.div`
   @media ${({ theme }) => theme.mediaQueries.smaller} {
     height: 28rem;
   }
+
+  @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+    height: 100%;
+  }
 `;
 
 export const Collection = styled.div`
