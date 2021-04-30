@@ -20,4 +20,9 @@ export const Container = styled.div`
 export const RightSide = styled.div`
   padding: 60px 40px 0 40px;
   flex: 1;
+
+  @media ${({ theme }) => theme.mediaQueries.medium} {
+    padding: 0px 20px 0 20px;
+    flex: 1;
+  }
 `;

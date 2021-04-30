@@ -34,10 +34,7 @@ function index({ children, headTitle }) {
         <MenuMobile />
       )}
 
-      <RightSide>
-        {size.width}px / {size.height}px
-        {children}
-      </RightSide>
+      <RightSide>{children}</RightSide>
     </Container>
   );
 }

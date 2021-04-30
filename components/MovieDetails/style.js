@@ -4,23 +4,26 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(200px, 400px) 1fr;
+  grid-template-columns: minmax(30rem, 50rem) 1fr;
   place-items: center;
   margin-bottom: 50px;
   font-family: "Poppins";
   position: relative;
   transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  @media ${({ theme }) => theme.mediaQueries.large} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const ImgContainer = styled.div`
-  padding: 3rem;
+  padding: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   height: 100%;
-  max-width: 400px;
-  min-height: 540px;
 
   img {
     max-width: 100%;
@@ -28,6 +31,24 @@ export const ImgContainer = styled.div`
     object-fit: cover;
     border-radius: 0.8rem;
     box-shadow: 0rem 2rem 5rem var(--shadow-color-dark);
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.largest} {
+    padding: 3rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.large} {
+    padding: 2rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.smaller} {
+    margin-bottom: 2rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.large} {
+    width: 60%;
+    flex: 1 1 60%;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -39,12 +60,13 @@ export const MovieDetails = styled.div`
   justify-content: center;
   overflow: hidden;
   flex: 1;
-  padding-left: 3rem;
   max-width: 750px;
   position: relative;
 `;
 
 export const MovieHeader = styled.div`
+  margin-bottom: 3rem;
+
   .title {
     color: #263238;
     font-size: 4rem;
@@ -54,6 +76,10 @@ export const MovieHeader = styled.div`
     text-transform: uppercase;
     display: block;
     margin-bottom: 0.5rem;
+
+    @media ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 3rem;
+    }
   }
 
   .tagline {
@@ -62,6 +88,10 @@ export const MovieHeader = styled.div`
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
+
+    @media ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 1.3rem;
+    }
   }
 `;
 
@@ -94,7 +124,6 @@ export const RatingsNumber = styled.span`
 `;
 
 export const Genre = styled.div`
-  margin-top: 40px;
   margin-bottom: 30px;
 
   .genreTitle {
@@ -107,10 +136,15 @@ export const Genre = styled.div`
     display: block;
     font-weight: 700;
     margin-bottom: 10px;
+
+    @media ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 1.4rem;
+    }
   }
 
   .linkContainer {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
   }
 `;
@@ -118,12 +152,19 @@ export const Genre = styled.div`
 export const GenreLink = styled.a`
   text-decoration: none;
   text-transform: uppercase;
-  line-height: 11px;
-  font-size: 12px;
+  line-height: 1;
+  font-size: 1.1rem;
   font-weight: 700;
   font-family: "Poppins", sans-serif;
-  margin-right: 15px;
+  padding: 0.5rem 0rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 2rem;
   transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 
   :hover {
     transform: translateY(-3px);
@@ -131,7 +172,7 @@ export const GenreLink = styled.a`
 
   span {
     color: #546e7a;
-    margin-left: 7px;
+    margin-left: 5px;
   }
 `;
 
@@ -141,42 +182,50 @@ export const Synopsis = styled.div`
 
   .synopsisTitle {
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 1.4rem;
     color: #263238;
     letter-spacing: normal;
     width: 100%;
     display: block;
     font-weight: 700;
     margin-bottom: 10px;
+
+    @media ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 1.4rem;
+    }
   }
 
   .synopsis {
-    font-size: 15px;
-    font-weight: 400;
-    color: #444444;
+    font-size: 1.4rem;
+    line-height: 1.8;
+    color: var(--link-color);
+    font-weight: 500;
   }
 `;
 
 export const CastContainer = styled.div`
   position: relative;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 3rem;
 
   .cast {
     text-transform: uppercase;
-    font-size: 14px;
+    font-size: 1.4rem;
     color: #263238;
     letter-spacing: normal;
     width: 100%;
     display: block;
     font-weight: 700;
     margin-bottom: 10px;
+
+    @media ${({ theme }) => theme.mediaQueries.large} {
+      font-size: 1.4rem;
+    }
   }
 `;
 
 export const LinksContainer = styled.div`
   width: 100%;
-  padding: 60px 0;
   display: flex;
   flex-direction: row;
 
@@ -201,6 +250,11 @@ export const LinksContainer = styled.div`
       border: 1px solid transparent;
       box-shadow: 0 1rem 5rem var(--shadow-color);
       transition: all 600ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    }
+
+    @media ${({ theme }) => theme.mediaQueries.large} {
+      padding: 0.8rem 2.8rem;
+      font-size: 1.4rem;
     }
   }
 `;
