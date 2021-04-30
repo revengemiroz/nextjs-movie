@@ -14,11 +14,13 @@ import { useGetRecommendedMovies } from "../../utils/useGetRecommendedMovies";
 import { useGetMovieDetails } from "../../utils/useGetMovieDetails";
 import { useGetCastFromMovies } from "../../utils/useGetCastFromMovies";
 import { useGetMoviesTrailers } from "../../utils/useGetMoviesTrailers";
+import useWindowResize from "../../utils/useWindowResize";
 
 function index(props) {
   const [page, setPage] = useState(1);
   const [movieId, setMovieId] = useState();
   const router = useRouter();
+  const size = useWindowResize();
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -58,16 +60,13 @@ function index(props) {
   return (
     <Layout headTitle={movieDetails?.title}>
       <div>
-        <SearchBar />
-
+        {size.width > 1280 && <SearchBar />}
         <MovieDetails
           movieDetails={movieDetails}
           cast={movieCast}
           videos={trailer}
         />
-
         <Header mainText="recommended" subText="movies" />
-
         {recommendedMovies?.results?.length > 0 && (
           <>
             <MovieList movies={recommendedMovies} />

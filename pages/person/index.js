@@ -12,10 +12,12 @@ import Pagination from "../../components/Pagination";
 
 import { useGetPersonDetails } from "../../utils/useGetPersonDetails";
 import { useGetPersonMovies } from "../../utils/useGetPersonMovies";
+import useWindowResize from "../../utils/useWindowResize";
 
 function index(props) {
   const [page, setPage] = useState(1);
   const [personId, setPersonId] = useState();
+  const size = useWindowResize();
 
   const router = useRouter();
 
@@ -44,7 +46,7 @@ function index(props) {
   return (
     <Layout headTitle={data?.name}>
       <div>
-        <SearchBar />
+        {size.width > 1280 && <SearchBar />}
         <PersonDetails personDetails={data} />
         <Header mainText="also enters in" subText="movies" />
         {personMovies && (

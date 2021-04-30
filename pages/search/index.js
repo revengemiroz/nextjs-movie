@@ -10,11 +10,13 @@ import MovieList from "../../components/MovieList";
 import Pagination from "../../components/Pagination";
 
 import { useGetMoviesSearched } from "../../utils/useGetMoviesSearched";
+import useWindowResize from "../../utils/useWindowResize";
 
 function index() {
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState();
   const router = useRouter();
+  const size = useWindowResize();
 
   useEffect(() => {
     if (!router?.isReady) return;
@@ -40,7 +42,7 @@ function index() {
   return (
     <Layout>
       <div>
-        <SearchBar search={setSearchQuery} />
+        {size.width > 1280 && <SearchBar search={setSearchQuery} />}
         <Header mainText={searchQuery} subText="search results" />
         {data?.results?.length > 0 && (
           <>

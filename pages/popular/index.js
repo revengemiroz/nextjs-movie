@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useQuery } from "react-query";
 import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
@@ -11,12 +9,13 @@ import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 
 import { useGetPopularMovies } from "../../utils/useGetPopularMovies";
+import useWindowResize from "../../utils/useWindowResize";
 
 function index() {
-  const { query, isReady } = useRouter();
   const router = useRouter();
+  const size = useWindowResize();
 
-  const [page, setPage] = useState(query?.page ?? 1);
+  const [page, setPage] = useState(router?.query?.page ?? 1);
 
   useEffect(() => {
     router.replace(`/popular?page=${page}`, undefined, { shallow: true });
@@ -30,7 +29,7 @@ function index() {
   return (
     <Layout headTitle="Popular Movies">
       <div>
-        <SearchBar />
+        {size.width > 1280 && <SearchBar />}
         <Header mainText="popular" />
         <MovieList movies={data?.data}></MovieList>
         <Pagination moviesData={data?.data} onClick={setPage} />
