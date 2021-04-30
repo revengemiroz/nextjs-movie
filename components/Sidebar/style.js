@@ -13,6 +13,11 @@ export const Container = styled.div`
     text-transform: uppercase;
     letter-spacing: 1.1px;
     margin: 0px 0px 1rem 1rem;
+
+    @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+      font-size: 2.3rem;
+      margin-bottom: 2rem;
+    }
   }
 `;
 
@@ -57,6 +62,11 @@ export const OptionLink = styled.a`
       color: ${({ isMobile }) =>
         isMobile ? "white" : "var(--color-primary-light)"};
     }
+
+    @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+      font-size: 2.3rem;
+      margin-bottom: 1.1rem;
+    }
   }
 
   .link:hover {
@@ -91,5 +101,9 @@ export const SvgContainer = styled.div`
 
   @media ${({ theme }) => theme.mediaQueries.large} {
     height: 1.5rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+    height: 7rem;
   }
 `;

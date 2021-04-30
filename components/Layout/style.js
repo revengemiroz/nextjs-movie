@@ -10,6 +10,11 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
   }
+
+  @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+    display: grid;
+    grid-template-columns: minmax(350px, 400px) auto;
+  }
 `;
 
 export const RightSide = styled.div`
