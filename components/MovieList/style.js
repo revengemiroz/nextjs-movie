@@ -20,4 +20,9 @@ export const Container = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(10rem, 18rem));
     grid-gap: 4rem 1rem;
   }
+
+  @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 35rem));
+    grid-gap: 4rem 1rem;
+  }
 `;
