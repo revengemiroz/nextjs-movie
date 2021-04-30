@@ -24,7 +24,7 @@ const theme = {
     large: "only screen and (max-width: 80em)",
     larger: "only screen and (max-width: 90em)",
     largest: "only screen and (max-width: 97em)",
-    greateThanLargest: "only screen and (min-width: 110em)",
+    greateThanLargest: "only screen and (min-width: 150em)", // 150em x 16px = 2400px
   },
 };
 

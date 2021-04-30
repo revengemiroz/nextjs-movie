@@ -6,14 +6,14 @@ export const Container = styled.div`
   grid-template-columns: 250px auto;
   position: relative;
 
+  @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
+    display: grid;
+    grid-template-columns: minmax(250px, 350px) auto;
+  }
+
   @media ${({ theme }) => theme.mediaQueries.large} {
     display: flex;
     flex-direction: column;
-  }
-
-  @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
-    display: grid;
-    grid-template-columns: minmax(320px, 370px) auto;
   }
 `;
 

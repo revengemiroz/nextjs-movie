@@ -64,7 +64,8 @@ export const OptionLink = styled.a`
     }
 
     @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
-      font-size: 2.3rem;
+      padding: 1.5rem 2.2rem;
+      font-size: 2.1rem;
       margin-bottom: 1.1rem;
     }
   }
