@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Truncate from "react-truncate";
 
 import EmptyImage from "../EmptyImage";
 import Spinner from "../Spinner";
@@ -18,25 +17,12 @@ import {
 
 function index({ personDetails, lines = 3 }) {
   const [imgLoaded, setImgLoaded] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const [truncated, setTruncated] = useState(false);
 
   if (!personDetails) {
     return null;
   }
 
   const { profile_path } = personDetails;
-
-  function handleTruncate(truncated) {
-    if (truncated !== truncated) {
-      setTruncated(true);
-    }
-  }
-
-  function toggleLines(event) {
-    event.preventDefault();
-    setExpanded(!expanded);
-  }
 
   return (
     <Container>
@@ -58,32 +44,11 @@ function index({ personDetails, lines = 3 }) {
 
         <Biography>
           <span className="biographyTitle">The Biography</span>
-
-          <Truncate
-            lines={!expanded && lines}
-            className="biography"
-            ellipsis={
-              <span>
-                ...{" "}
-                <a className="truncate" href="#" onClick={toggleLines}>
-                  show more
-                </a>
-              </span>
-            }
-            onTruncate={handleTruncate}
-          >
-            <p className="biography">
-              {personDetails?.biography}{" "}
-              {!truncated && expanded && (
-                <span>
-                  {" "}
-                  <a className="truncate" href="#" onClick={toggleLines}>
-                    show less
-                  </a>
-                </span>
-              )}
-            </p>
-          </Truncate>
+          {personDetails.biography ? (
+            <p className="biography">{personDetails?.biography}</p>
+          ) : (
+            <p className="biography">There is no biography available...</p>
+          )}
         </Biography>
 
         <ExternalLinks>

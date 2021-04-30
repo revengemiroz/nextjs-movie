@@ -4,16 +4,21 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(400px, 500px) 1fr;
+  grid-template-columns: minmax(30rem, 50rem) 1fr;
   place-items: center;
   margin-bottom: 50px;
   font-family: "Poppins";
+
+  @media ${({ theme }) => theme.mediaQueries.medium} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const ImgContainer = styled.div`
-  padding: 40px;
-  width: 440px;
-  height: 640px;
+  width: 80%;
+  flex: 1 1 40%;
+  padding: 4rem;
 
   img {
     max-width: 100%;
@@ -23,6 +28,24 @@ export const ImgContainer = styled.div`
     object-fit: contain;
     border-radius: 0.8rem;
     box-shadow: 0rem 2rem 5rem rgba(0, 0, 0, 0.25);
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.largest} {
+    padding: 3rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.large} {
+    padding: 2rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQueries.smaller} {
+    margin-bottom: 2rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    width: 60%;
+    flex: 1 1 60%;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -34,22 +57,31 @@ export const PersonDetails = styled.div`
 
 export const Name = styled.span`
   display: block;
-  font-size: 50px;
-  font-weight: 200;
+  font-size: 4rem;
+  font-weight: 400;
   line-height: 1.2;
   color: #263238;
   letter-spacing: -0.5px;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 2rem;
+
+  @media ${(props) => props.theme.mediaQueries.medium} {
+    font-weight: 300;
+    font-size: 3rem;
+  }
+
+  @media ${(props) => props.theme.mediaQueries.small} {
+    font-size: 2rem;
+  }
 `;
 
 export const DateOfBirth = styled.span`
   display: block;
-  margin-bottom: 50px;
-  font-size: 13px;
+  margin-bottom: 5rem;
+  font-size: 1.5rem;
   line-height: 1;
   font-weight: 700;
-  color: #263238;
+  color: var(--color-primary);
 `;
 
 export const Biography = styled.div`
@@ -62,13 +94,17 @@ export const Biography = styled.div`
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 1.5rem;
+
+    @media ${(props) => props.theme.mediaQueries.medium} {
+      font-size: 1.4rem;
+    }
   }
 
   .biography {
-    font-size: 14px;
+    font-size: 1.4rem;
     line-height: 1.8;
-    color: #263238;
+    color: var(--link-color);
     font-weight: 500;
   }
 
