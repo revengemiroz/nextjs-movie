@@ -13,7 +13,7 @@ export const Container = styled.div`
 
   @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
     display: grid;
-    grid-template-columns: minmax(350px, 400px) auto;
+    grid-template-columns: minmax(320px, 370px) auto;
   }
 `;
 
