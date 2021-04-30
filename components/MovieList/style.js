@@ -22,7 +22,7 @@ export const Container = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 35rem));
-    grid-gap: 4rem 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 30rem));
+    grid-gap: 6rem 5rem;
   }
 `;

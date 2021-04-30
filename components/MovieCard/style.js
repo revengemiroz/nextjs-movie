@@ -30,7 +30,7 @@ export const ImgContainer = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
-    height: 100%;
+    height: 42rem;
   }
 `;
 
