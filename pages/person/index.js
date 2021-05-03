@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
 import Layout from "../../components/Layout";
+import DropDown from "../../components/DropDown";
 import SearchBar from "../../components/SearchBar";
 import Spinner from "../../components/Spinner";
 import PersonDetails from "../../components/PersonDetails";
@@ -14,9 +15,29 @@ import { useGetPersonDetails } from "../../utils/useGetPersonDetails";
 import { useGetPersonMovies } from "../../utils/useGetPersonMovies";
 import useWindowResize from "../../utils/useWindowResize";
 
+export const options = [
+  {
+    value: "popularity.desc",
+    label: "Popularity",
+  },
+  {
+    value: "vote_average.desc",
+    label: "Votes Average",
+  },
+  {
+    value: "original_title.asc",
+    label: "Title",
+  },
+  {
+    value: "release_date.desc",
+    label: "Release Date",
+  },
+];
+
 function index(props) {
   const [page, setPage] = useState(1);
   const [personId, setPersonId] = useState();
+  const [sortBy, setSortBy] = useState(options[0].value);
   const size = useWindowResize();
 
   const router = useRouter();
@@ -33,7 +54,7 @@ function index(props) {
   }, [page]);
 
   const { data, isLoading, error } = useGetPersonDetails(personId);
-  const { data: personMovies } = useGetPersonMovies(personId, page);
+  const { data: personMovies } = useGetPersonMovies(personId, sortBy, page);
 
   if (!personMovies || !data) {
     return null;
@@ -49,6 +70,11 @@ function index(props) {
         {size.width > 1280 && <SearchBar />}
         <PersonDetails personDetails={data} />
         <Header mainText="also enters in" subText="movies" />
+        <DropDown
+          options={options}
+          defaultValue={options[0]}
+          onChange={(e) => setSortBy(e.value)}
+        />
         {personMovies && (
           <>
             <MovieList movies={personMovies} />

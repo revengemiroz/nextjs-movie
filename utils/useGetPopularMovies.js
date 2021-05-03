@@ -10,6 +10,7 @@ export const useGetPopularMovies = (page) =>
           page,
         },
       });
+      console.log(data);
       return data;
     },
     {
