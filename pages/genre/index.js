@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import MovieList from "../../components/MovieList";
 import Pagination from "../../components/Pagination";
 import SearchBar from "../../components/SearchBar";
+import ErrorRecommended from "../../components/ErrorRecommended";
 
 import { SwitchContext } from "../../context/SwitchContext";
 
@@ -26,6 +27,7 @@ function index(props) {
 
   const { data: movies } = useGetMoviesFromGenre(genreId, page);
   const { data: tvShows } = useGetTvShowsFromGenre(genreId, page);
+  console.log(tvShows);
   // const genreTitle = getTitleFromGenreId(data, genreId);
 
   const data = value ? tvShows : movies;
@@ -35,8 +37,16 @@ function index(props) {
       <div>
         {size.width > 1280 && <SearchBar />}
         <Header mainText={genreId} subText="genre" />
-        <MovieList movies={data} />
-        <Pagination moviesData={data} onClick={setPage} />
+
+        {data?.results.length !== 0 && (
+          <>
+            <MovieList movies={data} />
+            <Pagination moviesData={data} onClick={setPage} />
+          </>
+        )}
+        {data?.results.length === 0 && (
+          <ErrorRecommended text="this genre tv shows" />
+        )}
       </div>
     </Layout>
   );

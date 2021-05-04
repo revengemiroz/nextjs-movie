@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Container, TextContainer, ImageContainer, GoHome } from "./style";
 
-function index(props) {
+function index({ text = "recommended movies" }) {
   const [baseURL, setBaseURL] = useState(undefined);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ function index(props) {
     <Container>
       <TextContainer>
         <p>Sorry!</p>
-        <p>There are no recommended movies</p>
+        <p>There are no {text} </p>
       </TextContainer>
       <ImageContainer>
         <img
@@ -39,7 +39,6 @@ function index(props) {
             strokeLinecap="round"
             strokeLinejoin="round"
             className="prefix__feather prefix__feather-home"
-            {...props}
           >
             <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
             <path d="M9 22V12h6v10" />
