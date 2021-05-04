@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
+import Image from "next/image";
 import Switch from "react-switch";
 
 import { SwitchContext } from "../../context/SwitchContext";
 
-import { Main } from "./style";
+import { Main, TextContainer } from "./style";
 
 function index(props) {
   const { checked, setChecked, toggle } = useContext(SwitchContext);
@@ -16,8 +17,12 @@ function index(props) {
 
   return (
     <Main>
-      <label>Movie</label>
+      <TextContainer>
+        <Image src="/monitor.svg" width={16} height={16} />
+        <label>Movie</label>
+      </TextContainer>
       <Switch
+        className="switch"
         onColor="#006bff"
         offColor="#dbdbdb"
         checkedIcon={false}
@@ -28,7 +33,10 @@ function index(props) {
         onChange={handleChange}
         checked={checked}
       />
-      <label>TV</label>
+      <TextContainer>
+        <Image src="/tv.svg" width={16} height={16} />
+        <label>TV</label>
+      </TextContainer>
     </Main>
   );
 }

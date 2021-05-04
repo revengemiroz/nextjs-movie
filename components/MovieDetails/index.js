@@ -120,7 +120,7 @@ function index({ movieDetails, cast, videos }) {
               <Link
                 key={genre.id}
                 href={{
-                  pathname: baseURL + `genre`,
+                  pathname: baseURL + `/genre`,
                   query: { id: genre.id },
                 }}
                 passHref

@@ -2,7 +2,6 @@ import Head from "next/head";
 import Sticky from "react-stickynode";
 
 import Sidebar from "../Sidebar";
-import Switch from "../Switch";
 import MenuMobile from "../MenuMobile";
 
 import useWindowResize from "../../utils/useWindowResize";
@@ -35,10 +34,7 @@ function index({ children, headTitle }) {
         <MenuMobile />
       )}
 
-      <RightSide>
-        <Switch />
-        {children}
-      </RightSide>
+      <RightSide>{children}</RightSide>
     </Container>
   );
 }

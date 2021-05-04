@@ -7,12 +7,15 @@ import SearchBar from "../../components/SearchBar";
 import MovieList from "../../components/MovieList";
 import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
+import Switch from "../../components/Switch";
 
 import { SwitchContext } from "../../context/SwitchContext";
 
 import { useGetPopularMovies } from "../../utils/useGetPopularMovies";
 import { useGetPopularTvShows } from "../api/tv/useQuery/usePopularTvShows";
 import useWindowResize from "../../utils/useWindowResize";
+
+import { SwitchSearchWrapper } from "../../styles/pages/popular";
 
 function index() {
   const router = useRouter();
@@ -36,8 +39,12 @@ function index() {
   return (
     <Layout headTitle="Popular Movies">
       <div>
-        {size.width > 1280 && <SearchBar />}
-        <Header mainText="popular" />
+        <SwitchSearchWrapper>
+          <Switch />
+          {size.width > 1280 && <SearchBar />}
+        </SwitchSearchWrapper>
+
+        <Header mainText="popular" subText={checked ? "tv shows" : "movies"} />
         <MovieList movies={data?.data}></MovieList>
         <Pagination moviesData={data?.data} onClick={setPage} />
       </div>

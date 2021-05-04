@@ -17,6 +17,7 @@ export const useGetTvShowsFromGenre = (genreId, page) =>
           page: page,
         },
       });
+
       return data;
     },
     {
