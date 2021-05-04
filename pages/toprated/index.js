@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
@@ -8,12 +8,16 @@ import MovieList from "../../components/MovieList";
 import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 
+import { SwitchContext } from "../../context/SwitchContext";
+
 import { useGetTopRatedMovies } from "../../utils/useGetTopRatedMovies";
+import { useTopRatedTvShows } from "../api/tv/useQuery/useTopRatedTvShows";
 import useWindowResize from "../../utils/useWindowResize";
 
 function index(props) {
   const router = useRouter();
   const size = useWindowResize();
+  const { checked } = useContext(SwitchContext);
 
   const [page, setPage] = useState(router?.query?.page ?? 1);
 
@@ -24,15 +28,10 @@ function index(props) {
     });
   }, [page]);
 
-  const { data, isLoading, error } = useGetTopRatedMovies(page);
+  const { data: movieData, isLoading, error } = useGetTopRatedMovies(page);
+  const { data: tvData } = useTopRatedTvShows(page);
 
-  if (!data) {
-    return null;
-  }
-
-  if (isLoading) {
-    return <p>loading</p>;
-  }
+  const data = checked ? tvData : movieData;
 
   return (
     <Layout headTitle="Top Rated Movies">

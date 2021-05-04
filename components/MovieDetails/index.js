@@ -94,7 +94,9 @@ function index({ movieDetails, cast, videos }) {
 
       <MovieDetails>
         <MovieHeader>
-          <span className="title">{movieDetails?.title}</span>
+          <span className="title">
+            {movieDetails?.title || movieDetails?.name}
+          </span>
           <span className="tagline">{movieDetails?.tagline}</span>
 
           <RatingsContainer>
@@ -103,9 +105,10 @@ function index({ movieDetails, cast, videos }) {
               <RatingsNumber>{movieDetails?.vote_average}</RatingsNumber>
             </div>
             <span className="runtime">
-              {movieDetails?.spoken_languages[0]?.name} /{" "}
-              {movieDetails?.runtime} min. /{" "}
-              {movieDetails?.release_date.split("-")[0]}
+              {movieDetails?.spoken_languages[0]?.english_name} /{" "}
+              {movieDetails?.runtime || movieDetails?.episode_run_time} min. /{" "}
+              {movieDetails?.release_date?.split("-")[0] ||
+                movieDetails?.first_air_date?.split("-")[0]}
             </span>
           </RatingsContainer>
         </MovieHeader>

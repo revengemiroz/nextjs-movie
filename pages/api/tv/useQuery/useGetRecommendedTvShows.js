@@ -1,13 +1,13 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-export const useGetRecommendedMovies = (movieId, page) =>
+export const useGetRecommendedTvShows = (tvId, page) =>
   useQuery(
-    ["useGetRecommendedMovies", movieId, page],
+    ["useGetRecommendedTvShows", tvId, page],
     async () => {
       try {
         const { data } = await axios.get(
-          movieId && `/api/recommendation?movieId=${movieId}`,
+          tvId && `/api/tv/proxy/recommended?tvId=${tvId}`,
           {
             params: {
               page: page,

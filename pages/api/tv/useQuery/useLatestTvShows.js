@@ -1,11 +1,11 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-export const useGetPopularMovies = (page) =>
+export const useLatestTvShows = (page) =>
   useQuery(
-    ["getPopularMovies", page],
+    ["getLatestTvShows", page],
     async () => {
-      const { data } = await axios.get(`/api/popular`, {
+      const { data } = await axios.get(`/api/tv/proxy/latest`, {
         params: {
           page,
         },

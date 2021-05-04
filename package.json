@@ -23,8 +23,10 @@
     "react-select": "^4.3.0",
     "react-sticky-el": "^2.0.6",
     "react-stickynode": "^3.0.5",
+    "react-switch": "^6.0.0",
     "react-truncate": "^2.4.0",
-    "styled-components": "^5.2.3"
+    "styled-components": "^5.2.3",
+    "use-dark-mode": "^2.3.1"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0"

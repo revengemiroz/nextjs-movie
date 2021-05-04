@@ -7,6 +7,8 @@ import { ThemeProvider } from "styled-components";
 import GlobalStyle from "../styles/global";
 import theme from "../styles/theme";
 
+import SwitchProvider from "../context/SwitchContext";
+
 function MyApp({ Component, pageProps }) {
   const queryClient = new QueryClient({
     defaultOptions: {
@@ -19,8 +21,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-        <GlobalStyle />
+        <SwitchProvider>
+          <Component {...pageProps} />
+          <GlobalStyle />
+        </SwitchProvider>
       </ThemeProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>
