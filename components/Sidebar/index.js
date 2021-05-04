@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { useGetAllGenres } from "../../utils/useGetAllGenres";
+import { useGetTvGenreList } from "../../pages/api/tv/useQuery/useGetTvGenreList";
 import useWindowResize from "../../utils/useWindowResize";
+import { SwitchContext } from "../../context/SwitchContext";
 
 import {
   Container,
@@ -43,6 +45,7 @@ function checkIsMobile(width) {
 function index({ isMobile }) {
   const [baseURL, setBaseURL] = useState(undefined);
   const size = useWindowResize();
+  const { value } = useContext(SwitchContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -50,7 +53,10 @@ function index({ isMobile }) {
     }
   }, []);
 
-  const { data, isLoading, error } = useGetAllGenres();
+  const { data: movieGenreList } = useGetAllGenres();
+  const { data: tvGenreList } = useGetTvGenreList();
+
+  const data = value ? tvGenreList : movieGenreList;
 
   const MyLink = React.forwardRef(({ onClick, href, children }, ref) => {
     return (

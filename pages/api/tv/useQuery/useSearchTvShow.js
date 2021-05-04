@@ -2,17 +2,17 @@ import { useQuery } from "react-query";
 
 import axios from "axios";
 
-export const searchMoviesQueryKey = (searchQuery, page) => [
-  "getMoviesSearched",
+export const searchTvShowsQueryKey = (searchQuery, page) => [
+  "searchTvShowsQueryKey",
   searchQuery,
   page,
 ];
 
-export const useGetMoviesSearched = (searchQuery, page, value) =>
+export const useSearchTvShow = (searchQuery, page, value) =>
   useQuery(
-    searchMoviesQueryKey(searchQuery, page),
+    searchTvShowsQueryKey(searchQuery, page),
     async () => {
-      const { data } = await axios.get(searchQuery && `/api/search`, {
+      const { data } = await axios.get(searchQuery && `/api/tv/proxy/search`, {
         params: {
           query: searchQuery,
           page: page,

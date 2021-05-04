@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { animateScroll as scroll } from "react-scroll";
 
@@ -9,7 +9,10 @@ import Header from "../../components/Header";
 import MovieList from "../../components/MovieList";
 import Pagination from "../../components/Pagination";
 
+import { SwitchContext } from "../../context/SwitchContext";
+
 import { useGetMoviesSearched } from "../../utils/useGetMoviesSearched";
+import { useSearchTvShow } from "../api/tv/useQuery/useSearchTvShow";
 import useWindowResize from "../../utils/useWindowResize";
 
 function index() {
@@ -17,6 +20,8 @@ function index() {
   const [searchQuery, setSearchQuery] = useState();
   const router = useRouter();
   const size = useWindowResize();
+
+  const { value } = useContext(SwitchContext);
 
   useEffect(() => {
     if (!router?.isReady) return;
@@ -29,27 +34,30 @@ function index() {
     });
   }, [page]);
 
-  const { data, isLoading, error } = useGetMoviesSearched(searchQuery, page);
+  const { data: searchedMoviesData, isLoading, error } = useGetMoviesSearched(
+    searchQuery,
+    page,
+    value
+  );
+  const { data: searchedTvShowData } = useSearchTvShow(
+    searchQuery,
+    page,
+    value
+  );
 
-  if (isLoading) {
-    return <p>loading</p>;
-  }
+  console.log(searchedTvShowData);
 
-  if (error) {
-    return <p>{error}</p>;
-  }
+  const data = value ? searchedTvShowData : searchedMoviesData;
 
   return (
     <Layout>
       <div>
         {size.width > 1280 && <SearchBar search={setSearchQuery} />}
         <Header mainText={searchQuery} subText="search results" />
-        {data?.results?.length > 0 && (
-          <>
-            <MovieList movies={data} />
-            <Pagination moviesData={data} onClick={setPage} />
-          </>
-        )}
+
+        <MovieList movies={data} />
+        <Pagination moviesData={data} onClick={setPage} />
+
         {data?.results?.length == 0 && <ErrorRecommended />}
       </div>
     </Layout>
