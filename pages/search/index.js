@@ -17,7 +17,7 @@ import useWindowResize from "../../utils/useWindowResize";
 
 function index() {
   const [page, setPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const size = useWindowResize();
 
