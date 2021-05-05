@@ -2,15 +2,26 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
+import SearchDropDown from "../SearchDropDown";
+
+import { useGetMoviesSearched } from "../../utils/useGetMoviesSearched";
+
 import { SearchContainer, Form, Button, Input } from "./style";
 
 export default function index({ search }) {
   const [input, setInput] = useState("");
+  const [data, setData] = useState();
   const [state, setState] = useState(false);
   const inputFocus = useRef(null);
   const node = useRef();
 
   const router = useRouter();
+
+  const { data: searchedMoviesData, isLoading, error } = useGetMoviesSearched(
+    input,
+    1,
+    data
+  );
 
   useEffect(() => {
     //page load huda mount hanne
@@ -21,9 +32,22 @@ export default function index({ search }) {
     };
   }, []);
 
+  const debounceSave = (inputValue) => {
+    console.log(inputValue);
+    setData(inputValue);
+  };
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      debounceSave(input);
+    }, 1500);
+    return () => clearTimeout(timeoutId);
+  }, [input]);
+
   function handleClick(e) {
     if (!node.current.contains(e.target)) {
       setState(false);
+      // setInput("");
     }
   }
 
@@ -60,10 +84,13 @@ export default function index({ search }) {
           state={state}
           ref={inputFocus}
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => {
+            setInput(e.target.value);
+          }}
           placeholder="Search for a movie..."
         />
       </Form>
+      <SearchDropDown searchData={searchedMoviesData} hide={state} />
     </SearchContainer>
   );
 }

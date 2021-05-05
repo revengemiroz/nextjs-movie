@@ -8,7 +8,7 @@ export const searchMoviesQueryKey = (searchQuery, page) => [
   page,
 ];
 
-export const useGetMoviesSearched = (searchQuery, page, value) =>
+export const useGetMoviesSearched = (searchQuery, page, data) =>
   useQuery(
     searchMoviesQueryKey(searchQuery, page),
     async () => {
@@ -21,6 +21,7 @@ export const useGetMoviesSearched = (searchQuery, page, value) =>
       return data;
     },
     {
+      enabled: !!data,
       keepPreviousData: true,
     }
   );

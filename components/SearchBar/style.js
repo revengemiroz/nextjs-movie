@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const SearchContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
+  position: relative;
+  display: inline-block;
 `;
 
 export const Button = styled.button`
@@ -72,11 +72,13 @@ export const Form = styled.form`
   outline: none;
   border-radius: 10rem;
   transition: all 300ms cubic-bezier(0.645, 0.045, 0.355, 1);
+
   @media ${({ theme }) => theme.mediaQueries.large} {
     background-color: var(--color-primary);
     border: 1px solid transparent;
     padding: 1.5rem;
   }
+
   @media ${({ theme }) => theme.mediaQueries.smallest} {
     max-width: 25rem;
   }

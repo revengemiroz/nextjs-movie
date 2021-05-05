@@ -26,6 +26,7 @@ function index() {
   useEffect(() => {
     if (!router?.isReady) return;
     setSearchQuery(router?.query?.searchQuery);
+    setPage(1);
   }, [router.isReady, router.query.searchQuery]);
 
   useEffect(() => {
@@ -39,13 +40,12 @@ function index() {
     page,
     value
   );
+
   const { data: searchedTvShowData } = useSearchTvShow(
     searchQuery,
     page,
     value
   );
-
-  console.log(searchedTvShowData);
 
   const data = value ? searchedTvShowData : searchedMoviesData;
 
