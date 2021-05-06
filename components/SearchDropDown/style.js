@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  /* border: 2px solid green; */
   position: absolute;
   width: 100%;
   display: ${({ hideit }) => (hideit == 1 ? "none" : "block")};
@@ -14,23 +13,27 @@ export const Container = styled.div`
 `;
 
 export const List = styled.li`
-  border-radius: 4px 4px 0 0;
+  border-radius: 4px;
   font-size: 1.3rem;
   margin: 1.5rem 0;
   list-style: none;
-  box-shadow: 1rem 1rem 5rem #d7e0ea;
+  background-color: white;
+  box-shadow: 1rem 1rem 5rem #e5ebf1;
   cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
 `;
 
 export const MovieContainer = styled.div`
-  /* border: 2px solid green; */
   display: flex;
   flex-direction: row;
 `;
 
 export const MovieImage = styled.div`
-  width: 50px;
-  /* border: 2px solid yellow; */
+  width: 70px;
+  max-height: 80px;
   border-radius: 4px;
   overflow: hidden;
 
@@ -40,39 +43,51 @@ export const MovieImage = styled.div`
     display: block;
     object-fit: cover;
     backface-visibility: hidden;
+
+    &:hover {
+      transform: scale(1.3);
+      transition: all linear 0.3s;
+      object-fit: contain;
+    }
   }
 `;
 
 export const MovieDetails = styled.div`
   width: 100%;
-  /* border: 2px solid green; */
-  padding: 0 1.5rem;
+  padding: 0.8rem 1.5rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   flex-direction: column;
 
   .movieTitle {
     display: block;
     font-size: 1.3rem;
-    border: 2px solid green;
     line-height: 17px;
+    font-weight: 500;
+    margin-bottom: 1rem;
   }
 `;
 
 export const Details = styled.div`
-  /* border: 2px solid green; */
   display: flex;
   flex-direction: row;
   align-items: center;
+  user-select: none;
 `;
 
-export const Rating = styled.div`
-  margin: 0 1rem;
+export const Wrapper = styled.div`
+  margin: 0 0.7rem;
   display: flex;
+  font-size: 1.1rem;
   flex-direction: row;
   align-items: center;
 
   span {
-    margin-left: 0.8rem;
+    margin-left: 1rem;
   }
+`;
+
+export const GenreTitle = styled.span`
+  font-size: 1.1rem;
+  font-weight: 600;
 `;

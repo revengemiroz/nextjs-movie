@@ -8,7 +8,7 @@ import { useGetMoviesSearched } from "../../utils/useGetMoviesSearched";
 
 import { SearchContainer, Form, Button, Input } from "./style";
 
-export default function index({ search }) {
+export default function index({ inputs }) {
   const [input, setInput] = useState("");
   const [data, setData] = useState();
   const [state, setState] = useState(false);
@@ -26,6 +26,7 @@ export default function index({ search }) {
   useEffect(() => {
     //page load huda mount hanne
     document.addEventListener("mousedown", handleClick);
+
     //unmount when the page is left the listener should be removed
     return () => {
       document.removeEventListener("mousedown", handleClick);
@@ -33,7 +34,6 @@ export default function index({ search }) {
   }, []);
 
   const debounceSave = (inputValue) => {
-    console.log(inputValue);
     setData(inputValue);
   };
 
@@ -46,8 +46,7 @@ export default function index({ search }) {
 
   function handleClick(e) {
     if (!node.current.contains(e.target)) {
-      setState(false);
-      // setInput("");
+      // setState(false);
     }
   }
 
@@ -90,7 +89,7 @@ export default function index({ search }) {
           placeholder="Search for a movie..."
         />
       </Form>
-      <SearchDropDown searchData={searchedMoviesData} hide={state} />
+      <SearchDropDown searchData={searchedMoviesData} />
     </SearchContainer>
   );
 }

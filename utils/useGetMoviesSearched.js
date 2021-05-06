@@ -19,10 +19,10 @@ export const useGetMoviesSearched = (searchQuery, page, data) =>
           page: page,
         },
       });
+
       return data;
     },
     {
       enabled: !!searchQuery,
-      keepPreviousData: true,
     }
   );

@@ -60,7 +60,15 @@ function index(props) {
   return (
     <Layout headTitle={movieDetails?.title}>
       <div>
-        {size.width > 1280 && <SearchBar />}
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          {size.width > 1280 && <SearchBar />}
+        </div>
         <MovieDetails
           movieDetails={movieDetails}
           cast={movieCast}

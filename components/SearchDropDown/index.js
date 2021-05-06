@@ -2,6 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import EmptyImage from "../EmptyImage";
+
+import { useGetAllGenres } from "../../utils/useGetAllGenres";
 import { ImgBaseURL } from "../../utils/tmdb";
 
 import {
@@ -11,13 +14,24 @@ import {
   MovieImage,
   MovieDetails,
   Details,
-  Rating,
+  Wrapper,
+  GenreTitle,
 } from "./style";
 
-function index({ searchData, hide }) {
+function index({ searchData }) {
   const [data, setData] = useState([]);
   const [baseURL, setBaseURL] = useState(undefined);
+  const [imgLoaded, setImgLoaded] = useState(false);
   const node = useRef(null);
+
+  const { data: allGenres } = useGetAllGenres();
+
+  const getTitleFromGenreId = (data, genreId) => {
+    if (data) {
+      const result = data?.filter((item) => item?.id == genreId);
+      return result[0]?.name ?? null;
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -31,6 +45,8 @@ function index({ searchData, hide }) {
     if (searchData) {
       leftSide = searchData?.results?.splice(0, half_length);
       setData(leftSide);
+    } else {
+      setData([]);
     }
   }, [searchData]);
 
@@ -44,21 +60,35 @@ function index({ searchData, hide }) {
         <List ref={node}>
           <MovieContainer>
             <MovieImage>
-              <img
-                src={ImgBaseURL + "w200" + data?.poster_path}
-                alt={data?.id}
-              />
+              {data?.poster_path ? (
+                <img
+                  style={!imgLoaded ? { display: "none" } : {}}
+                  src={ImgBaseURL + "w200" + data?.poster_path}
+                  alt={data?.id}
+                  onLoad={() => setImgLoaded(true)}
+                />
+              ) : (
+                <EmptyImage />
+              )}
             </MovieImage>
 
             <MovieDetails>
               <span className="movieTitle">{data?.title}</span>
               <Details>
-                <span>{data?.release_date?.split("-")[0]}</span>
-                <Rating>
+                <Wrapper>
+                  <Image src="/clock.svg" height={10} width={10} />
+                  <span>{data?.release_date?.split("-")[0]}</span>
+                </Wrapper>
+                <Wrapper>
                   <Image src="/star.svg" height={10} width={10} />
                   <span>{data?.vote_average / 2}</span>
-                </Rating>
-                <span>{data?.genre_ids[0]}</span>
+                </Wrapper>
+                <Wrapper>
+                  <Image src="/eye.svg" height={10} width={10} />
+                  <GenreTitle>
+                    {getTitleFromGenreId(allGenres, data?.genre_ids[0])}
+                  </GenreTitle>
+                </Wrapper>
               </Details>
             </MovieDetails>
           </MovieContainer>
@@ -67,7 +97,7 @@ function index({ searchData, hide }) {
     ));
   };
 
-  return <Container hideit={hide ? 0 : 1}>{renderList(data)}</Container>;
+  return <Container>{renderList(data)}</Container>;
 }
 
 export default index;
