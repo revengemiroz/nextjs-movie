@@ -5,6 +5,10 @@ export const SwitchContext = createContext();
 
 const SwitchProvider = ({ children }) => {
   const [isMounted, setIsMounted] = useState(false);
+  const [selectedTab, setSelectedTab] = useState({
+    selected: "Popular",
+    id: null,
+  });
   const { value, toggle } = useDarkMode(false, {
     storageKey: "apiCall",
     onChange: null,
@@ -15,7 +19,14 @@ const SwitchProvider = ({ children }) => {
     setIsMounted(true);
   }, []);
 
-  const hooks = { checked, setChecked, value, toggle };
+  const hooks = {
+    checked,
+    setChecked,
+    value,
+    toggle,
+    selectedTab,
+    setSelectedTab,
+  };
 
   return (
     <SwitchContext.Provider value={hooks}>

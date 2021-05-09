@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Image from "next/image";
 
 import { useGetAllGenres } from "../../utils/useGetAllGenres";
@@ -11,7 +12,6 @@ import {
   Container,
   HeaderLogo,
   GenreContainer,
-  OptionContainer,
   OptionLink,
   SvgContainer,
 } from "./style";
@@ -42,56 +42,58 @@ function checkIsMobile(width) {
   }
 }
 
-function index({ isMobile }) {
+function index() {
   const [baseURL, setBaseURL] = useState(undefined);
+  const router = useRouter();
+
   const size = useWindowResize();
-  const { value } = useContext(SwitchContext);
+  const { value, selectedTab, setSelectedTab } = useContext(SwitchContext);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       setBaseURL(window.location.origin);
+      setSelectedTab({ selected: router?.pathname, id: router?.query?.id });
     }
   }, []);
+
+  useEffect(() => {
+    setSelectedTab({ selected: router?.pathname, id: router?.query?.id });
+  }, [router?.query?.id]);
 
   const { data: movieGenreList } = useGetAllGenres();
   const { data: tvGenreList } = useGetTvGenreList();
 
   const data = value ? tvGenreList : movieGenreList;
 
-  const MyLink = React.forwardRef(({ onClick, href, children }, ref) => {
-    return (
-      <OptionLink
-        isMobile={checkIsMobile(size.width)}
-        selected={false}
-        href={href}
-        onClick={onClick}
-        ref={ref}
-      >
-        {children}
-      </OptionLink>
-    );
-  });
-
   const getAllStaticGenres = (genres) => {
     return (
       <>
         <h2>Discover</h2>
         {genres?.map((name) => (
-          <OptionContainer key={name.id}>
-            <Link href={name?.href} passHref>
-              <MyLink isMobile={checkIsMobile(size.width)}>
-                <div className="link">
-                  <Image
-                    src="/play-fill.svg"
-                    alt="Picture of the author"
-                    width={14}
-                    height={14}
-                  />
-                  <span>{name?.text}</span>
-                </div>
-              </MyLink>
-            </Link>
-          </OptionContainer>
+          <Link href={name?.href} key={name?.id} passHref>
+            <OptionLink
+              key={name?.id}
+              onClick={() => {
+                setSelectedTab({ selected: router?.pathname });
+              }}
+              selected={selectedTab.selected == name?.href}
+              isMobile={checkIsMobile(size.width) ? 0 : 1}
+            >
+              <div className="link">
+                <Image
+                  src={
+                    selectedTab.selected == name?.href
+                      ? "/heart-fill.svg"
+                      : "/heart-fill-light.svg"
+                  }
+                  alt="Picture of the author"
+                  width={14}
+                  height={14}
+                />
+                <span>{name?.text}</span>
+              </div>
+            </OptionLink>
+          </Link>
         ))}
       </>
     );
@@ -105,27 +107,42 @@ function index({ isMobile }) {
       <GenreContainer>
         <h2>Genres</h2>
         {genres?.map(({ name, id }) => (
-          <OptionContainer key={id}>
-            <Link
-              href={{
-                pathname: "/genre",
-                query: { id },
+          <Link
+            href={{
+              pathname: "/genre",
+              query: { id },
+            }}
+            //shallow only works when the base url is same and query is different so it doesnt reload the page
+            shallow={true}
+            key={id}
+            passHref
+          >
+            <OptionLink
+              onClick={() => {
+                setSelectedTab({ selected: router?.pathname, id: id });
               }}
-              passHref
+              selected={
+                selectedTab.selected == router?.pathname &&
+                selectedTab?.id == id
+              }
+              isMobile={checkIsMobile(size.width) ? 0 : 1}
             >
-              <MyLink isMobile={checkIsMobile(size.width)}>
-                <div className="link">
-                  <Image
-                    src="/play.svg"
-                    alt="Picture of the author"
-                    width={14}
-                    height={14}
-                  />
-                  <span>{name}</span>
-                </div>
-              </MyLink>
-            </Link>
-          </OptionContainer>
+              <div className="link">
+                <Image
+                  src={
+                    selectedTab.selected == router?.pathname &&
+                    selectedTab?.id == id
+                      ? "/play-circle.svg"
+                      : "/play-circle-light.svg"
+                  }
+                  alt="Picture of the author"
+                  width={14}
+                  height={14}
+                />
+                <span>{name}</span>
+              </div>
+            </OptionLink>
+          </Link>
         ))}
       </GenreContainer>
     );

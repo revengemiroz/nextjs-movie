@@ -26,13 +26,6 @@ export const GenreContainer = styled.div`
   margin-top: 5rem;
 `;
 
-export const OptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 export const OptionLink = styled.a`
   transition: all 100ms cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
   outline: currentcolor none medium;
@@ -47,11 +40,12 @@ export const OptionLink = styled.a`
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 1;
-    opacity: 0.6;
-    color: ${({ isMobile }) =>
-      isMobile ? "white" : "var(--color-primary-light)"};
-    border: ${({ selected }) =>
-      selected ? "1px solid var(--color-primary)" : "1px solid transparent"};
+    border: ${({ selected, isMobile }) =>
+      selected && isMobile == 0
+        ? "1px solid white"
+        : selected && isMobile == 1
+        ? "1px solid var(--color-primary)"
+        : "1px solid transparent"};
     border-radius: 2rem;
     display: flex;
     flex-direction: row;
@@ -59,8 +53,12 @@ export const OptionLink = styled.a`
 
     span {
       margin-left: 0.5rem;
-      color: ${({ isMobile }) =>
-        isMobile ? "white" : "var(--color-primary-light)"};
+      color: ${({ selected, isMobile }) =>
+        selected && isMobile == 0
+          ? "white"
+          : selected && isMobile == 1
+          ? "#263238"
+          : "#98a8af"};
     }
 
     @media ${({ theme }) => theme.mediaQueries.greateThanLargest} {
@@ -71,7 +69,7 @@ export const OptionLink = styled.a`
   }
 
   .link:hover {
-    border: 1px solid var(--color-primary-light);
+    border: 1px solid #98a8af;
   }
 `;
 
