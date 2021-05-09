@@ -1,34 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Movie Library w/ NextJS
+
+## [Check it live here](https://nextjs-movie-olive.vercel.app/)
+
+![Thumbnail](public/ShowCase.png)
+
+A Movie Library made with NextJS using The Movie Database API
 
 ## Getting Started
 
-First, run the development server:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-```bash
-npm run dev
-# or
+### Prerequisites
+
+You need to create an API KEY in [The Movie Database API](https://www.themoviedb.org/documentation/api)
+Create an .env.local file on the root of the project and put your API key
+
+```
+REACT_APP_API=yourapikeyhere
+```
+
+### Installing
+
+Clone the Repository and run
+
+```
+yarn install
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+To deploy simply run
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```
+yarn run build
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Built With
 
-## Learn More
+- [Next JS](https://nextjs.org/)
+- [React Query](https://react-query.tanstack.com/)
+- [Styled Components](https://www.styled-components.com)
 
-To learn more about Next.js, take a look at the following resources:
+## Contributing
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Please feel free to send pull request if you want to contribute!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Authors
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Miroz Devkota - _Development_ - [Author](https://mirozdevkota.com.np/)
